@@ -6,18 +6,14 @@
  rating: ""
 }*/
 
-var code = "";
-var name = "";
-var category = "";
-var description = "";
-var rating = "";
 
-function Item (){
-  code = "";
-  name = "";
-  category = "";
-  description = "";
-  rating = "";
+function Item (code, name, category, description, rating){
+  this.code = code;
+  this.name = name;
+  this.category = category;
+  this.description = description;
+  this.rating = rating;
+  return this;
 }
 /*this = function(){
   code = "";
@@ -68,4 +64,4 @@ setRating = function(rating){
  this.rating = rating;
 }
 
-module.exports = {getCode, setCode, getName, setName, getCategory, setCategory, getDescription, setDescription, getRating, setRating}
+module.exports = {Item, getCode, setCode, getName, setName, getCategory, setCategory, getDescription, setDescription, getRating, setRating}

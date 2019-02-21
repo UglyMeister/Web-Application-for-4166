@@ -14,7 +14,7 @@ overflow-x: hidden;
 border: 1px solid black;
 }
 #mainImg{
-  position: fixed;
+  position: absolute;
 
 }
 button{
@@ -24,6 +24,9 @@ button{
 form{
   position: relative;
   left: 175px;
+}
+.noLeft{
+  left: 0px;
 }
 footer{
   margin-top: 710px;

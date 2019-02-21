@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <% include header.ejs %>
+    <link type="text/css" rel="stylesheet" href="../assets/stylesheets/myItems.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <% include footer.ejs %>
+    <% include user-navigation.ejs %>
+
+    <br>
+
+    <% include site-navigation.ejs %>
+
+    <div class="main">
+      <p><h3>My Items</h3></p>
+      <table id="myItemsList">
+        <tr id="information">
+          <th>Meme Name</th>
+          <th>Category</th>
+          <th>My Rating</th>
+          <th>Used it</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>DOGE</td>
+          <td>Chill Memes</td>
+          <td>5/5</td>
+          <td></td>
+          <td>
+            <form class="" action="/item">
+              <input type="submit" name="update" value="Update">
+            </form>
+            <form class="" action="/myItems">
+              <input type="submit" name="remove" value="Delete">
+            </form>
+          </td>
+        </tr>
+      </table>
+
+      <p>Click <a class="active" href="#">here</a> to share your meme!</p>
+    </div>
+
+  </body>
+  </html>

@@ -7,7 +7,7 @@ app.use('/assets', express.static('assets'));
 
 app.use('/test', function(req, res){
   console.log(items.getItem(4));
-  res.render('feedback', {});
+  res.render('item', {});
 });
 app.use('/', function(req, res){
   res.render('index', {});

@@ -1,5 +1,5 @@
 var express = require('express');
-var items = require('./models/itemDB.js');
+var items = require('./util/itemDB.js');
 var app = express();
 var router = express.Router();
 app.set('view engine', 'ejs');

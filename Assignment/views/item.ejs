@@ -15,8 +15,8 @@
     <% include site-navigation.ejs %>
 
     <div class="main">
-      <p><h3>DOGE</h3></p>
-      <img id="mainImg" src="../assets/images/doge.jpg" alt="n/a" width="160" height="90">
+      <p><h3><%= reqItem.name %></h3></p>
+      <img id="mainImg" src="<%= reqItem.url %>" alt="n/a" width="160" height="90">
       <form action="/categories">
         <input type="submit" name="back" value="Return to categories">
       </form>

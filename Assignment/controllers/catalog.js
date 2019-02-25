@@ -14,7 +14,7 @@ router.get('/', function(req, res){
     return;
   }
   var reqItem = db.getItem(id);
-  res.render('item', reqItem);
+  res.render('item', {reqItem: reqItem});
 });
 
 module.exports = router;

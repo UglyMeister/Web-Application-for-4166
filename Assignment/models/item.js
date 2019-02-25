@@ -1,10 +1,12 @@
 function newItem(code, name, category, description, rating){
-  return {code: code, name: name, category: category, description: description, rating: rating};
+  var url = getImgURL(name);
+  return {code: code, name: name, category: category, description: description, rating: rating, url: url};
 }
 
-function getImgURL(code){
- url = "../assets/images/" + code;
+var getImgURL = function(name){
+ var url = "../assets/images/" + name + ".jpg";
  return url;
 }
+
 
 module.exports = {getImgURL, newItem};

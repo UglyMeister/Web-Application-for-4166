@@ -23,7 +23,7 @@ var getItems = function(){
 //sifts through the array created above and finds a specific entry by comparing the id given and the code the objects have
 var getItem = function(id){
   var array = getItems();
-  for (var i = 1; i < array.length; i++){
+  for (var i = 0; i < array.length; i++){
     if(id == array[i].code){
       return array[i];
     }

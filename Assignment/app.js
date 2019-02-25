@@ -7,7 +7,16 @@ var app = express();
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 
-app.use('/test', catalog);
+app.use('/catalog', catalog);
+app.use('/about', function(req, res){
+  res.render('about', {});
+});
+app.use('/contact', function(req, res){
+  res.render('contact', {});
+});
+app.use('/myItems', function(req, res){
+  res.render('myItems', {});
+});
 app.use('/', function(req, res){
   res.render('index', {});
 });

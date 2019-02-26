@@ -15,7 +15,8 @@ border: 1px solid black;
 }
 #mainImg{
   position: absolute;
-
+  width: 8%;
+  height: 15%;
 }
 button{
   position: relative;

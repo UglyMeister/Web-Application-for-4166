@@ -6,7 +6,6 @@ var router = express.Router();
 var re = new RegExp('1-6');
 
 router.get('/', function(req, res){
-  var addr;
   var id = req.query.id;
   if(id == null || id <= 0 || id >= 7){
     var array = db.getItems();

@@ -8,3 +8,5 @@ var city;
 var state;
 var zip;
 var country;
+
+module.exports = {uid, firstName, lastName, email, addr1, addr2, city, state, zip, country};

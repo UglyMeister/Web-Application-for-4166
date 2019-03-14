@@ -1,3 +1,5 @@
+var userProfile = require('./userProfile.js');
+
 var uid;
 var firstName;
 var lastName;
@@ -8,5 +10,9 @@ var city;
 var state;
 var zip;
 var country;
+
+function newUser(uid, fName, lName, email){
+  return {uid: uid, fName: fName, lName: lName, email: email};
+}
 
 module.exports = {uid, firstName, lastName, email, addr1, addr2, city, state, zip, country};

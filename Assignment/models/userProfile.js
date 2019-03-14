@@ -1,3 +1,4 @@
+var userItem = require('./userItem.js');
 var uid;
 var userItems = [];
 

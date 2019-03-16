@@ -1,4 +1,5 @@
 var userItem = require('./userItem.js');
+var user = require('./user.js');
 var uid;
 var userItems = [];
 

@@ -1,5 +1,4 @@
 var express = require('express');
-var item = require('../models/item.js');
 var db = require('../util/itemDB.js');
 var router = express.Router();
 

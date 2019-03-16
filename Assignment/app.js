@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 //var items = require('./util/itemDB.js');
 var catalog = require('./controllers/catalog.js');
 

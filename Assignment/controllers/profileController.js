@@ -1,6 +1,7 @@
 var userProfile = require('../models/userProfile.js');
 var userDB = require('../util/userDB.js');
 var userItem = require('../models/userItem.js');
+var itemDB = require('../util/itemDB.js');
 var express = require('express');
 var session = require('express-session');
 
@@ -33,7 +34,9 @@ function main(req, res, next){
                   next();
                 }
               });
-              var newUserItem = userItem.newUserItem();
+              var newUserItem = userItem.newUserItem(itemDB.getItem(req.params.itemCode), 0, false);
+              currentUserProfile.addItem(newUserItem);
+              req.session.userProfile = currentUserProfile.getItems();
             }
           }
         }
@@ -45,6 +48,7 @@ function main(req, res, next){
   }else{
     req.session.theUser = userDB.getUsers()[0];
     currentUserProfile = new userProfile;
+    currentUserProfile.uid = userDB.getUsers()[0].uid;
     req.session.userProfile = currentUserProfile.getItems();
   }
 }

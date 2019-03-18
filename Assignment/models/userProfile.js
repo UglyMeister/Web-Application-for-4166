@@ -39,4 +39,4 @@ function emptyProfile(){
   userItems = [];
 }
 
-module.exports = {addItem, removeItem, updateItem, getItems, emptyProfile};
+module.exports = {uid, addItem, removeItem, updateItem, getItems, emptyProfile};

@@ -1,5 +1,3 @@
-var db = require('../util/itemDB.js');
-
 var item;
 var rating;
 var madeIt;

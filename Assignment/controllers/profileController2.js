@@ -80,7 +80,7 @@ function signout(){
 
 //checks to see whether or not the itemList exists
 function hasItemList(){
-  if(req.params.itemList){
+  if(req.params.itemList && req.params.itemList != "" && req.params.itemList != null){
     return true;
   }else{//if the item list doesn't exist then the function will return false, otherwise it will return true
     return false;

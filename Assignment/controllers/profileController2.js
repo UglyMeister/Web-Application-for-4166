@@ -1,8 +1,18 @@
+var express = require('express');
+
 var userDB = require('../util/userDB.js');
 var userItem = require('../models/userItem.js');
 
-module.exports = function(){
-  return function(req, res, next){
+var router = express.Router();
+
+router.get('/', function(req, res, next){
+  main(req, res);
+});
+router.post('/', function(req, res, next){
+  main(req, res);
+});
+
+function main(req, res){
     //has someone logged in yet?
     if(req.session.theUser){
       //if there is a specific action that is taking place
@@ -25,8 +35,7 @@ module.exports = function(){
           signout();
         }
       }else{//there is no specific action taking place
-        res.redirect('/myItems');
-        next();
+        res.render('/myItems', {});
       }
 
     }
@@ -36,11 +45,11 @@ module.exports = function(){
       req.session.theUser = newUser;
       var newUserProfile = userDB.getUserProfiles();
       req.session.userProfile = newUserProfile;
-      res.redirect('/');
+      res.render('/', {});
     }
 
   }
-}
+
 
 
 function save(){
@@ -51,20 +60,20 @@ function save(){
         //check if item already exists in user profile
         req.session.userProfile.getItems().forEach(item => {
           if(item == element){//item exists in the user profile
-            res.redirect('/myItems');
+            res.render('/myItems', {});
           }else{//item does not exist within the user profile
             var newUserItem = userItem.newUserItem(element, 0, false);
             newUserProfile.addItem(newUserItem);
             req.session.userProfile = newUserProfile;
-            res.redirect('/myItems');
+            res.render('/myItems', {});
           }
         });
       }else{//specified item code is not within the item list
-        res.redirect('/myItems');
+        res.render('/myItems', {});
       }
     });
   }else{
-    res.redirect('/myItems');
+    res.render('/myItems', {});
   }
 }
 
@@ -72,7 +81,7 @@ function updateProfile(){
   if(hasItemList()){
 
   }else{
-    res.redirect('/myItems');
+    res.render('/myItems', {});
   }
 }
 
@@ -80,7 +89,7 @@ function updateRating(){
   if(hasItemList()){
 
   }else{
-    res.redirect('/myItems');
+    res.render('/myItems', {});
   }
 }
 
@@ -88,13 +97,13 @@ function updateFlag(){
   if(hasItemList()){
 
   }else{
-    res.redirect('/myItems');
+    res.render('/myItems', {});
   }
 }
 
 function signout(){
   req.session.destroy();
-  res.redirect('/index');
+  res.render('/index', {});
 }
 
 //checks to see whether or not the itemList exists
@@ -105,3 +114,5 @@ function hasItemList(){
     return false;
   }
 }
+
+module.exprts = router;

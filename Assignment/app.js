@@ -21,6 +21,12 @@ app.use('/contact', function(req, res){
   res.render('contact', {});
 });
 app.use('/myItems', function(req, res){
+
+  // process data
+  var userProfile = req.session.userProfile;
+  console.log(userProfile);
+
+
   res.render('myItems', {});
 });
 app.use('/', function(req, res){

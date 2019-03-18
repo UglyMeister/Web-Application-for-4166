@@ -36,5 +36,10 @@ function getItems(){
 function emptyProfile(){
   userItems = [];
 }
+function newUserProfile(uid, userItems){
+  uid = uid;
+  userItems = userItems;
+  return {uid, userItems, getItems, updateItem, addItem, removeItem, emptyProfile};
+}
 
-module.exports = {uid, addItem, removeItem, updateItem, getItems, emptyProfile};
+module.exports = {uid, addItem, removeItem, updateItem, getItems, emptyProfile, newUserProfile};

@@ -37,6 +37,24 @@ function main(req, res, next){
               var newUserItem = userItem.newUserItem(itemDB.getItem(req.params.itemCode), 0, false);
               currentUserProfile.addItem(newUserItem);
               req.session.userProfile = currentUserProfile.getItems();
+              next();
+            }
+            if(currentAction == "updateProfile"){
+              currentItemList.forEach(element =>{
+                var tempArray = currentUserProfile.getItems();
+                tempArray.forEach(element2 =>{
+                  if(element2.code == element.code){
+                    req.params.theItem = element2;
+                    next();
+                  }
+                });
+              });
+            }else{
+              next();
+            }
+            if(currentAction == "updateRating"){
+              currentRating = req.params.rating;
+
             }
           }
         }

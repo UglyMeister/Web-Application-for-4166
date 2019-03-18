@@ -1,4 +1,5 @@
 var userDB = require('../util/userDB.js');
+var userItem = require('../models/userItem.js');
 
 module.exports = function(){
   return function(req, res, next){
@@ -8,7 +9,8 @@ module.exports = function(){
       if(req.params.action){
         console.log("there is action");
         if(req.params.action == "save"){//save protocol
-
+          save();
+          console.log(req.params.session);
         }
         if(req.params.action == "updateProfile"){//update profile protocol
 
@@ -43,7 +45,24 @@ module.exports = function(){
 
 function save(){
   if(hasItemList()){
-
+    //check param itemCode
+    req.params.itemList.forEach(element => {
+      if(element.code == req.params.itemCode){//specified item code is within the item list
+        //check if item already exists in user profile
+        req.session.userProfile.getItems().forEach(item => {
+          if(item == element){//item exists in the user profile
+            res.redirect('/myItems');
+          }else{//item does not exist within the user profile
+            var newUserItem = userItem.newUserItem(element, 0, false);
+            newUserProfile.addItem(newUserItem);
+            req.session.userProfile = newUserProfile;
+            res.redirect('/myItems');
+          }
+        });
+      }else{//specified item code is not within the item list
+        res.redirect('/myItems');
+      }
+    });
   }else{
     res.redirect('/myItems');
   }

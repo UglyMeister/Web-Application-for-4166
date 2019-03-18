@@ -13,13 +13,13 @@ module.exports = function(){
           console.log(req.params.session);
         }
         if(req.params.action == "updateProfile"){//update profile protocol
-
+          updateProfile();
         }
         if(req.params.action == "updateRating"){//update rating protocol
-
+          updateRating();
         }
         if(req.params.action == "updateFlag"){//update flag protocol
-
+          updateFlag();
         }
         if(req.params.action == "signout"){//signout protocol
           signout();

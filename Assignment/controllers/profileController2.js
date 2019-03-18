@@ -42,22 +42,47 @@ module.exports = function(){
 
 
 function save(){
+  if(hasItemList()){
 
+  }else{
+    res.redirect('/myItems');
+  }
 }
 
 function updateProfile(){
+  if(hasItemList()){
 
+  }else{
+    res.redirect('/myItems');
+  }
 }
 
 function updateRating(){
+  if(hasItemList()){
 
+  }else{
+    res.redirect('/myItems');
+  }
 }
 
 function updateFlag(){
+  if(hasItemList()){
 
+  }else{
+    res.redirect('/myItems');
+  }
 }
 
 function signout(){
   req.session.destroy();
   res.redirect('/index');
+}
+
+//checks to see whether or not the itemList exists
+function hasItemList(){
+  if(req.params.itemList){
+    return true;
+  }else{//if the item list doesn't exist then the function will return false, otherwise it will return true
+    return false;
+  }
 }

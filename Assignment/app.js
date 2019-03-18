@@ -13,6 +13,7 @@ app.use(session({secret: 'secret', resave: true, saveUninitialized: false}));
 
 
 app.use('/login', profileController);
+app.use('/logout', profileController);
 
 app.use('/catalog', catalog);
 app.use('/about', function(req, res){
@@ -21,15 +22,7 @@ app.use('/about', function(req, res){
 app.use('/contact', function(req, res){
   res.render('contact', {});
 });
-app.use('/myItems', function(req, res){
-
-  // process data
-  var userProfile = req.session.userProfile;
-  console.log(userProfile);
-
-
-  res.render('myItems', {});
-});
+app.use('/myItems', profileController);
 app.use('/', function(req, res){
   res.render('index', {});
 });

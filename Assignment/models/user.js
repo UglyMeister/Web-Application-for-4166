@@ -10,7 +10,7 @@ var zip;
 var country;
 
 function newUser(uid, fName, lName, email){
-  return {uid: uid, fName: fName, lName: lName, email: email};
+  return {uid: uid, firstName: fName, lastName: lName, email: email};
 }
 
 module.exports = {uid, firstName, lastName, email, addr1, addr2, city, state, zip, country, newUser};

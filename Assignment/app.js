@@ -10,7 +10,9 @@ app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 app.use(session({secret: 'secret', resave: true, saveUninitialized: false}));
 
-app.use('/login', profileController());
+app.use('/login', profileController(), function(req,res){
+  res.render('index', {});
+});
 app.use('/catalog', catalog);
 app.use('/about', function(req, res){
   res.render('about', {});

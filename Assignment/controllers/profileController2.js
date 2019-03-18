@@ -59,4 +59,5 @@ function updateFlag(){
 
 function signout(){
   req.session.destroy();
+  res.redirect('/index');
 }

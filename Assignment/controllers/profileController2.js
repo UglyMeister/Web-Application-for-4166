@@ -20,10 +20,11 @@ function main(req, res){
         console.log("there is action");
         if(req.params.action == "save"){//save protocol
           save();
-          console.log(req.params.session);
+          console.log("save");
         }
         if(req.params.action == "updateProfile"){//update profile protocol
           updateProfile();
+          console.log("update profile")
         }
         if(req.params.action == "updateRating"){//update rating protocol
           updateRating();
@@ -80,8 +81,16 @@ function save(){
 function updateProfile(){
   if(hasItemList()){
     req.params.itemList.forEach(element => {
-      if(element.code == req.params.itemCode){
-        
+      if(element.code == req.params.itemCode){//specified item code is within the item list
+        //check if item already exists in user profile
+        req.session.userProfile.getItems().forEach(item => {
+          if(item == element){//item exists in the user profile
+            req.session.theItem = item;
+            res.render('feedback', {reqItem: item.item});
+          }else{//item doesn't exist within user profile
+            res.render('myItems', {});
+          }
+        });
       }
     });
   }else{
@@ -91,7 +100,9 @@ function updateProfile(){
 
 function updateRating(){
   if(hasItemList()){
-
+    if(req.params.rating && req.params.rating != "" && req.params.rating != null && req.params.rating >= 0 && req.params.rating <= 5){
+      
+    }
   }else{
     res.render('myItems', {});
   }

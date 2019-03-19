@@ -25,6 +25,14 @@
           <th>Used it</th>
           <th></th>
         </tr>
+        <% for(var i=0; i < itemList.length; i++){ %>
+          <tr>
+            <td><%= itemList[i].item.name%></td>
+            <td><%= itemList[i].item.category%></td>
+            <td><%= itemList[i].rating%></td>
+            <td><%= itemList[i].madeIt%></td>
+          </tr>
+        <% } %>
         <tr>
           <td>DOGE</td>
           <td>Chill Memes</td>

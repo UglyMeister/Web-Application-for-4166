@@ -79,7 +79,11 @@ function save(){
 
 function updateProfile(){
   if(hasItemList()){
-
+    req.params.itemList.forEach(element => {
+      if(element.code == req.params.itemCode){
+        
+      }
+    });
   }else{
     res.render('myItems', {});
   }

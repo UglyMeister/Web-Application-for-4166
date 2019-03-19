@@ -28,12 +28,19 @@ function main(req, res){
         }
         if(req.params.action == "updateRating"){//update rating protocol
           updateRating();
+          console.log("update rating");
         }
         if(req.params.action == "updateFlag"){//update flag protocol
           updateFlag();
+          console.log("update flag");
+        }
+        if(req.params.action == "deleteItem"){
+          deleteItem();
+          console.log("delete item");
         }
         if(req.params.action == "signout"){//signout protocol
           signout();
+          console.log("signout");
         }
       }else{//there is no specific action taking place
         res.render('myItems', {});
@@ -126,7 +133,35 @@ function updateRating(){
 
 function updateFlag(){
   if(hasItemList()){
+    if(req.params.flag || req.params.flag == true || req.params.flag == false){
+      if(req.params.flag == "" || req.params.flag == null){
+        //do nothing
+      }
+      if(req.params.flag == req.params.itemList[0].madeIt){
+        //do nothing
+      }else{
+        req.params.itemList[0].madeIt = req.params.flag;
+        newUserProfile.updateItem(req.params.itemList[0]);
+      }
+      req.session.userProfile = newUserProfile;
+      res.render('myItems', {});
+    }else{
+      res.render('myItems', {});
+    }
+  }else{
+    res.render('myItems', {});
+  }
+}
 
+function deleteItem(){
+  if(hasItemList()){
+    newUserProfile.getItems().forEach(element => {
+      if(element == req.params.itemList[0]){
+        newUserProfile.removeItem(req.params.itemList[0].item.code);
+      }
+      req.session.userProfile = newUserProfile;
+      res.render('myItems', {});
+    });
   }else{
     res.render('myItems', {});
   }

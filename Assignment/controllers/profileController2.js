@@ -100,8 +100,24 @@ function updateProfile(){
 
 function updateRating(){
   if(hasItemList()){
-    if(req.params.rating && req.params.rating != "" && req.params.rating != null && req.params.rating >= 0 && req.params.rating <= 5){
-      
+    if(req.params.rating || (req.params.rating >= 0 && req.params.rating <= 5)){//rating value exists
+      if(req.params.rating == 0){//swap attributes and give to profile
+        req.params.itemList[0].rating = 0;
+        newUserProfile.updateItem(req.params.itemList[0]);//update user profile rating value for the item
+      }
+      if(req.params.rating == null || req.params.rating == ""){
+        //do nothing
+      }
+      if(req.params.rating == req.params.itemList[0].rating){
+        //do nothing
+      }else{//swap attributes and give to profile
+        req.params.itemList[0].rating = req.params.rating;
+        newUserProfile.updateItem(req.params.itemList[0]);
+      }
+      req.session.userProfile = newUserProfile;
+      res.render('myItems', {});
+    }else{//rating value doesn't exist or falls outside of acceptable parameters
+      res.render('myItems', {});
     }
   }else{
     res.render('myItems', {});

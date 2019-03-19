@@ -43,13 +43,7 @@ function main(req, res){
           console.log("signout");
         }
       }else{//there is no specific action taking place
-        console.log("no action");
-        if(req.session.userProfile != "" && req.session.userProfile != null){
-          res.render('myItems', {itemList: newUserProfile.getItems()});
-        }else{
-          res.render('myItems', {itemList: []});
-        }
-
+        res.render('myItems', {});
       }
 
     }
@@ -74,20 +68,24 @@ function save(){
         //check if item already exists in user profile
         req.session.userProfile.getItems().forEach(item => {
           if(item == element){//item exists in the user profile
-            res.render('myItems', {itemList: req.session.userProfile.getItems()});
+            res.render('myItems', {});
           }else{//item does not exist within the user profile
             var newUserItem = userItem.newUserItem(element, 0, false);
             newUserProfile.addItem(newUserItem);
             req.session.userProfile = newUserProfile;
-            res.render('myItems', {itemList: req.session.userProfile.getItems()});
+            res.render('myItems', {});
           }
         });
       }else{//specified item code is not within the item list
+<<<<<<< HEAD
         res.render('myItems', {itemList: req.session.userProfile.getItems(), session: session});
+=======
+        res.render('myItems', {});
+>>>>>>> parent of 03db9ea... 4.6
       }
     });
   }else{
-    res.render('myItems', {itemList: req.session.userProfile.getItems()});
+    res.render('myItems', {});
   }
 }
 
@@ -101,13 +99,13 @@ function updateProfile(){
             req.session.theItem = item;
             res.render('feedback', {reqItem: item.item});
           }else{//item doesn't exist within user profile
-            res.render('myItems', {itemList: req.session.userProfile.getItems()});
+            res.render('myItems', {});
           }
         });
       }
     });
   }else{
-    res.render('myItems', {itemList: req.session.userProfile.getItems()});
+    res.render('myItems', {});
   }
 }
 
@@ -128,12 +126,12 @@ function updateRating(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {itemList: req.session.userProfile.getItems()});
+      res.render('myItems', {});
     }else{//rating value doesn't exist or falls outside of acceptable parameters
-      res.render('myItems', {itemList: req.session.userProfile.getItems()});
+      res.render('myItems', {});
     }
   }else{
-    res.render('myItems', {itemList: req.session.userProfile.getItems()});
+    res.render('myItems', {});
   }
 }
 
@@ -150,12 +148,12 @@ function updateFlag(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {itemList: req.session.userProfile.getItems()});
+      res.render('myItems', {});
     }else{
-      res.render('myItems', {itemList: req.session.userProfile.getItems()});
+      res.render('myItems', {});
     }
   }else{
-    res.render('myItems', {itemList: req.session.userProfile.getItems()});
+    res.render('myItems', {});
   }
 }
 
@@ -166,10 +164,10 @@ function deleteItem(){
         newUserProfile.removeItem(req.params.itemList[0].item.code);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {itemList: req.session.userProfile.getItems()});
+      res.render('myItems', {});
     });
   }else{
-    res.render('myItems', {itemList: req.session.userProfile.getItems()});
+    res.render('myItems', {});
   }
 }
 

@@ -1,6 +1,6 @@
 function newItem(code, name, category, description, rating){
   var url = getImgURL(name);
-  return {code: code, name: name, category: category, description: description, url: url};
+  return {code: code, name: name, category: category, description: description, rating: rating, url: url};
 }
 
 var getImgURL = function(name){

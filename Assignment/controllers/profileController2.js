@@ -78,7 +78,11 @@ function save(){
         });
       }else{//specified item code is not within the item list
 <<<<<<< HEAD
+<<<<<<< HEAD
         res.render('myItems', {itemList: req.session.userProfile.getItems(), session: session});
+=======
+        res.render('myItems', {});
+>>>>>>> parent of 03db9ea... 4.6
 =======
         res.render('myItems', {});
 >>>>>>> parent of 03db9ea... 4.6

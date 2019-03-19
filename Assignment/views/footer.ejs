@@ -1,1 +1,4 @@
-<footer><p>Fred's Meme Extravaganza; published: 2019</footer>
+<footer><p>Fred's Meme Extravaganza; published: 2019</p>
+<p><% if(session && session != "" && session != null){ %>
+  <p>Welcome <%=session.theUser.firstName%> <%=session.theUser.lastName%></p>
+<% }else{} %></p></footer>

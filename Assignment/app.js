@@ -24,7 +24,7 @@ app.use('/contact', function(req, res){
 });
 app.use('/myItems', profileController);
 app.use('/', function(req, res){
-  res.render('index', {});
+  res.render('index', {session: req.session});
 });
 
 

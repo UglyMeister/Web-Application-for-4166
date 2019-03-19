@@ -59,7 +59,7 @@ function main(req, res){
       req.session.theUser = newUser;
       var newUserProfile = userDB.getUserProfiles();
       req.session.userProfile = newUserProfile;
-      res.render('index', {});
+      res.render('index', {session: req.session});
     }
 
   }
@@ -83,7 +83,7 @@ function save(){
           }
         });
       }else{//specified item code is not within the item list
-        res.render('myItems', {itemList: req.session.userProfile.getItems()});
+        res.render('myItems', {itemList: req.session.userProfile.getItems(), session: session});
       }
     });
   }else{

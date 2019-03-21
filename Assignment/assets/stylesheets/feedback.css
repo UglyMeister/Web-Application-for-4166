@@ -1,0 +1,34 @@
+body{
+  width: 700px;
+  height: 850px;
+  margin: 0 auto;
+  border: 3px solid black;
+  padding: 0 2em 1em;
+}
+.sideNav{
+width: 175px;
+height: 200px;
+position: absolute;
+z-index: 1;
+overflow-x: hidden;
+border: 1px solid black;
+}
+#mainImg{
+  position: absolute;
+  width: 8%;
+  height: 15%;
+}
+button{
+  position: relative;
+  left: 175px;
+}
+form{
+  position: relative;
+  left: 175px;
+}
+.noLeft{
+  left: 0px;
+}
+footer{
+  margin-top: 860px;
+}

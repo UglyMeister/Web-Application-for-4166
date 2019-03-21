@@ -8,11 +8,11 @@ router.get('/', function(req, res){
   var id = req.query.id;
   if(id == null || id <= 0 || id >= 7){
     var array = db.getItems();
-    res.render('categories', {array: array});
+    res.render('categories', {array: array, session: req.session});
     return;
   }
   var reqItem = db.getItem(id);
-  res.render('item', {reqItem: reqItem});
+  res.render('item', {reqItem: reqItem, session: req.session});
 });
 
 module.exports = router;

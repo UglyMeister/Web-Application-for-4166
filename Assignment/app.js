@@ -17,10 +17,13 @@ app.use('/logout', profileController);
 
 app.use('/catalog', catalog);
 app.use('/about', function(req, res){
-  res.render('about', {});
+  res.render('about', {session: req.session});
 });
 app.use('/contact', function(req, res){
-  res.render('contact', {});
+  res.render('contact', {session: req.session});
+});
+app.use('/feedback', function(req, res){
+  res.render('feedback', {session: req.session})
 });
 app.use('/myItems', profileController);
 app.use('/', function(req, res){

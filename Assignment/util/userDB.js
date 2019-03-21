@@ -1,7 +1,7 @@
 var user = require('../models/user.js');
 var userProfile = require('../models/userProfile.js')
 
-var user1 = user.newUser(1, 'fred', 'last', 'placeholder@gmail.com');
+var user1 = user.newUser(1, 'Fred', 'York', 'placeholder@gmail.com');
 var userProfile1 = userProfile.newUserProfile(1, []);
 
 function getUsers(){

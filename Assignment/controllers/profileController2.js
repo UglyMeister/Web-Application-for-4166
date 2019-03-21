@@ -43,7 +43,7 @@ function main(req, res){
           console.log("signout");
         }
       }else{//there is no specific action taking place
-        res.render('myItems', {});
+        res.render('myItems', {session: req.session});
       }
 
     }
@@ -68,20 +68,20 @@ function save(){
         //check if item already exists in user profile
         req.session.userProfile.getItems().forEach(item => {
           if(item == element){//item exists in the user profile
-            res.render('myItems', {});
+            res.render('myItems', {session: req.session});
           }else{//item does not exist within the user profile
             var newUserItem = userItem.newUserItem(element, 0, false);
             newUserProfile.addItem(newUserItem);
             req.session.userProfile = newUserProfile;
-            res.render('myItems', {});
+            res.render('myItems', {session: req.session});
           }
         });
       }else{//specified item code is not within the item list
-        res.render('myItems', {});
+        res.render('myItems', {session: req.session});
       }
     });
   }else{
-    res.render('myItems', {});
+    res.render('myItems', {session: req.session});
   }
 }
 
@@ -93,15 +93,15 @@ function updateProfile(){
         req.session.userProfile.getItems().forEach(item => {
           if(item == element){//item exists in the user profile
             req.session.theItem = item;
-            res.render('feedback', {reqItem: item.item});
+            res.render('feedback', {session: req.session});
           }else{//item doesn't exist within user profile
-            res.render('myItems', {});
+            res.render('myItems', {session: req.session});
           }
         });
       }
     });
   }else{
-    res.render('myItems', {});
+    res.render('myItems', {session: req.session});
   }
 }
 
@@ -122,12 +122,12 @@ function updateRating(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {});
+      res.render('myItems', {session: req.session});
     }else{//rating value doesn't exist or falls outside of acceptable parameters
-      res.render('myItems', {});
+      res.render('myItems', {session: req.session});
     }
   }else{
-    res.render('myItems', {});
+    res.render('myItems', {session: req.session});
   }
 }
 
@@ -144,12 +144,12 @@ function updateFlag(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {});
+      res.render('myItems', {session: req.session});
     }else{
-      res.render('myItems', {});
+      res.render('myItems', {session: req.session});
     }
   }else{
-    res.render('myItems', {});
+    res.render('myItems', {session: req.session});
   }
 }
 
@@ -160,16 +160,16 @@ function deleteItem(){
         newUserProfile.removeItem(req.params.itemList[0].item.code);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {});
+      res.render('myItems', {session: req.session});
     });
   }else{
-    res.render('myItems', {});
+    res.render('myItems', {session: req.session});
   }
 }
 
 function signout(){
   req.session.destroy();
-  res.render('index', {});
+  res.render('index', {session: req.session});
 }
 
 //checks to see whether or not the itemList exists

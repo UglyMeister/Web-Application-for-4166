@@ -26,7 +26,14 @@
           <th></th>
         </tr>
         <tr>
-          <% if(session){} %>
+          <% if(userProfile.getItems().length > 0){ %>
+          <%  for(var i = 0; i < userProfile.getItems().length; i++){ %>
+              <td><%= userProfile.getItems()[i].item.name %></td>
+              <td><%= userProfile.getItems()[i].item.category %></td>
+              <td><%= userProfile.getItems()[i].rating %>/5</td>
+              <td><%= userProfile.getItems()[i].madeIt %></td>
+          <% } %>
+          <% } %>
           <td>DOGE</td>
           <td>Chill Memes</td>
           <td>5/5</td>

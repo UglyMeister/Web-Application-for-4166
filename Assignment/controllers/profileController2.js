@@ -2,6 +2,8 @@ var express = require('express');
 
 var userDB = require('../util/userDB.js');
 var userItem = require('../models/userItem.js');
+var userProfile = require('../models/userProfile.js');
+var user = require('../models/user.js');
 
 var router = express.Router();
 
@@ -43,7 +45,7 @@ function main(req, res){
           console.log("signout");
         }
       }else{//there is no specific action taking place
-        res.render('myItems', {session: req.session});
+        res.render('myItems', {session: req.session, userProfile: userProfile});
       }
 
     }
@@ -53,6 +55,7 @@ function main(req, res){
       req.session.theUser = newUser;
       var newUserProfile = userDB.getUserProfiles();
       req.session.userProfile = newUserProfile;
+      console.log(req.session.userProfile);
       res.render('index', {session: req.session});
     }
 
@@ -68,20 +71,20 @@ function save(){
         //check if item already exists in user profile
         req.session.userProfile.getItems().forEach(item => {
           if(item == element){//item exists in the user profile
-            res.render('myItems', {session: req.session});
+            res.render('myItems', {session: req.session, userProfile: userProfile});
           }else{//item does not exist within the user profile
             var newUserItem = userItem.newUserItem(element, 0, false);
             newUserProfile.addItem(newUserItem);
             req.session.userProfile = newUserProfile;
-            res.render('myItems', {session: req.session});
+            res.render('myItems', {session: req.session, userProfile: userProfile});
           }
         });
       }else{//specified item code is not within the item list
-        res.render('myItems', {session: req.session});
+        res.render('myItems', {session: req.session, userProfile: userProfile});
       }
     });
   }else{
-    res.render('myItems', {session: req.session});
+    res.render('myItems', {session: req.session, userProfile: userProfile});
   }
 }
 
@@ -95,13 +98,13 @@ function updateProfile(){
             req.session.theItem = item;
             res.render('feedback', {session: req.session});
           }else{//item doesn't exist within user profile
-            res.render('myItems', {session: req.session});
+            res.render('myItems', {session: req.session, userProfile: userProfile});
           }
         });
       }
     });
   }else{
-    res.render('myItems', {session: req.session});
+    res.render('myItems', {session: req.session, userProfile: userProfile});
   }
 }
 
@@ -122,12 +125,12 @@ function updateRating(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {session: req.session});
+      res.render('myItems', {session: req.session, userProfile: userProfile});
     }else{//rating value doesn't exist or falls outside of acceptable parameters
-      res.render('myItems', {session: req.session});
+      res.render('myItems', {session: req.session, userProfile: userProfile});
     }
   }else{
-    res.render('myItems', {session: req.session});
+    res.render('myItems', {session: req.session, userProfile: userProfile});
   }
 }
 
@@ -144,12 +147,12 @@ function updateFlag(){
         newUserProfile.updateItem(req.params.itemList[0]);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {session: req.session});
+      res.render('myItems', {session: req.session, userProfile: userProfile});
     }else{
-      res.render('myItems', {session: req.session});
+      res.render('myItems', {session: req.session, userProfile: userProfile});
     }
   }else{
-    res.render('myItems', {session: req.session});
+    res.render('myItems', {session: req.session, userProfile: userProfile});
   }
 }
 
@@ -160,10 +163,10 @@ function deleteItem(){
         newUserProfile.removeItem(req.params.itemList[0].item.code);
       }
       req.session.userProfile = newUserProfile;
-      res.render('myItems', {session: req.session});
+      res.render('myItems', {session: req.session, userProfile: userProfile});
     });
   }else{
-    res.render('myItems', {session: req.session});
+    res.render('myItems', {session: req.session, userProfile: userProfile});
   }
 }
 

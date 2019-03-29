@@ -7,12 +7,15 @@ var user = require('../models/user.js');
 
 var router = express.Router();
 
+
 router.get('/', function(req, res){
   main(req, res);
 });
 router.post('/', function(req, res){
   main(req, res);
 });
+
+
 
 function main(req, res){
     //has someone logged in yet?
@@ -21,28 +24,33 @@ function main(req, res){
       if(req.params.action){
         console.log("there is action");
         if(req.params.action == "save"){//save protocol
+          console.log("save");
           save();
           console.log("save");
         }
         if(req.params.action == "updateProfile"){//update profile protocol
+          console.log("update profile");
           updateProfile();
           console.log("update profile")
         }
         if(req.params.action == "updateRating"){//update rating protocol
+          console.log("update rating");
           updateRating();
           console.log("update rating");
         }
         if(req.params.action == "updateFlag"){//update flag protocol
+          console.log("update flag");
           updateFlag();
           console.log("update flag");
         }
         if(req.params.action == "deleteItem"){
+          console.log("delete item");
           deleteItem();
           console.log("delete item");
         }
-        if(req.params.action == "signout"){//signout protocol
-          signout();
+        if(req.query.action == "signout"){//signout protocol
           console.log("signout");
+          signout();
         }
       }else{//there is no specific action taking place
         res.render('myItems', {session: req.session, userProfile: userProfile});

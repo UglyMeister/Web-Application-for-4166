@@ -18,14 +18,7 @@ app.use('/signout',function(req,res,next){
   next();
 }, profileController);
 
-app.use('/catalog',/*function(req,res,next){
-  if(req.session != null){
-    next();
-  }else{
-    profileController;
-    next();
-  }
-},*/ catalog);
+app.use('/catalog', catalog);
 app.use('/about', function(req, res){
   res.render('about', {session: req.session});
 });

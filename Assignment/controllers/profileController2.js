@@ -18,6 +18,15 @@ router.post('/', function(req, res){
 
 
 function main(req, res){
+  //is the user not logged in right now?
+  if(!req.session.theUser || req.session.theUser == "" || req.session.theUser == null){
+    var newUser = userDB.getUsers();
+    req.session.theUser = newUser;
+    var newUserProfile = userDB.getUserProfiles();
+    req.session.userProfile = newUserProfile;
+    console.log("new user");
+    res.render('index', {session: req.session});
+  }
     //has someone logged in yet?
     if(req.session.theUser){
       //if there is a specific action that is taking place
@@ -58,16 +67,7 @@ function main(req, res){
       }
 
     }
-    //is the user not logged in right now?
 
-    if(!req.session.theUser || req.session.theUser == "" || req.session.theUser == null){
-      var newUser = userDB.getUsers();
-      req.session.theUser = newUser;
-      var newUserProfile = userDB.getUserProfiles();
-      req.session.userProfile = newUserProfile;
-      console.log("new user");
-      res.render('index', {session: req.session});
-    }
 
   }
 

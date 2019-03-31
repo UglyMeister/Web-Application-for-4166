@@ -21,7 +21,7 @@ function main(req, res){
     //has someone logged in yet?
     if(req.session.theUser){
       //if there is a specific action that is taking place
-      if(req.params.action){
+      if(req.params.action && req.params.action != null && req.params.action != ""){
         console.log("there is action");
         if(req.params.action == "save"){//save protocol
           console.log("save");
@@ -48,22 +48,24 @@ function main(req, res){
           deleteItem();
           console.log("delete item");
         }
-        if(req.query.action == "signout"){//signout protocol
-          console.log("signout");
-          signout();
-        }
+      }
+      if(req.originalUrl == "/signout"){//signout protocol
+        console.log("signout");
+        signout(req, res);
       }else{//there is no specific action taking place
+        console.log("no action");
         res.render('myItems', {session: req.session, userProfile: userProfile});
       }
 
     }
     //is the user not logged in right now?
+
     if(!req.session.theUser || req.session.theUser == "" || req.session.theUser == null){
       var newUser = userDB.getUsers();
       req.session.theUser = newUser;
       var newUserProfile = userDB.getUserProfiles();
       req.session.userProfile = newUserProfile;
-      console.log(req.session.userProfile);
+      console.log("new user");
       res.render('index', {session: req.session});
     }
 
@@ -178,7 +180,7 @@ function deleteItem(){
   }
 }
 
-function signout(){
+function signout(req, res){
   req.session.destroy();
   res.render('index', {session: req.session});
 }

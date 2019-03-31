@@ -12,10 +12,20 @@ app.use(session({secret: 'secret', resave: true, saveUninitialized: false}));
 
 
 
-app.use('/login', profileController);
-app.use('/logout', profileController);
+app.use('/signin', profileController);
+app.use('/signout',function(req,res,next){
+  console.log(req.originalUrl);
+  next();
+}, profileController);
 
-app.use('/catalog', catalog);
+app.use('/catalog',/*function(req,res,next){
+  if(req.session != null){
+    next();
+  }else{
+    profileController;
+    next();
+  }
+},*/ catalog);
 app.use('/about', function(req, res){
   res.render('about', {session: req.session});
 });

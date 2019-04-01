@@ -4,8 +4,8 @@ var User = require('../models/User');
 let userObj = new User();
 
 userObj.setUserID(1);
-userObj.setUserName("Norm");
-userObj.setEmail("norm@mail.com");
+userObj.setUserName("Fred");
+userObj.setEmail("fyork@mail.com");
 
 userObj
 appUsers.push(userObj);

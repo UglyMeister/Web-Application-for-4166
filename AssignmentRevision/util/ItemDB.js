@@ -4,57 +4,57 @@ let appItems = [];
 
 let itemObj = new Item();
 itemObj.setItemCode(1);
-itemObj.setItemName("Buffalo Chicken Dip");
-itemObj.setDescription("Buffalo Chicken Dip recipe description");
-itemObj.setCategory("Appetizer");
-itemObj.setImageURL("images/buffaloDip.jpg");
+itemObj.setItemName("Shaggy");
+itemObj.setDescription("Shaggy description");
+itemObj.setCategory("Modern");
+itemObj.setImageURL("images/shaggy.jpg");
 
 appItems.push(itemObj);
 //console.log(appItems.length);
 
 itemObj = new Item();
 itemObj.setItemCode(2);
-itemObj.setItemName("Stuffed Mushrooms");
-itemObj.setDescription("Stuffed Mushrooms recipe description");
-itemObj.setCategory("Appetizer");
-itemObj.setImageURL("images/stuffedMushrooms.jpg");
+itemObj.setItemName("Emoji");
+itemObj.setDescription("Emoji description");
+itemObj.setCategory("Modern");
+itemObj.setImageURL("images/emoji.jpg");
 
 appItems.push(itemObj);
 console.log(appItems.length);
 
 itemObj = new Item();
 itemObj.setItemCode(3);
-itemObj.setItemName("Red Pepper Hummus");
-itemObj.setDescription("Red Pepper Hummus recipe description");
-itemObj.setCategory("Appetizer");
-itemObj.setImageURL("images/redHummus.jpg");
+itemObj.setItemName("B");
+itemObj.setDescription("B description");
+itemObj.setCategory("Modern");
+itemObj.setImageURL("images/b.jpg");
 
 appItems.push(itemObj);
 
 itemObj = new Item();
 itemObj.setItemCode(4);
-itemObj.setItemName("Chicken Parmesan");
-itemObj.setDescription("Chicken Parmesan recipe description");
-itemObj.setCategory("Main Dish");
-itemObj.setImageURL("images/chickenParm.jpg");
+itemObj.setItemName("Doge");
+itemObj.setDescription("Doge description");
+itemObj.setCategory("Classic");
+itemObj.setImageURL("images/doge.jpg");
 
 appItems.push(itemObj);
 
 itemObj = new Item();
 itemObj.setItemCode(5);
-itemObj.setItemName("Lasagna");
-itemObj.setDescription("Lasagna recipe description");
-itemObj.setCategory("Main Dish");
-itemObj.setImageURL("images/lasagna.jpg");
+itemObj.setItemName("Bad Luck Brian");
+itemObj.setDescription("Bad Luck Brian description");
+itemObj.setCategory("Classic");
+itemObj.setImageURL("images/BadLuckBrian.jpg");
 
 appItems.push(itemObj);
 
 itemObj = new Item();
 itemObj.setItemCode(6);
-itemObj.setItemName("Tuna Casserole");
-itemObj.setDescription("Tuna Casserole recipe description");
-itemObj.setCategory("Main Dish");
-itemObj.setImageURL("images/tunaCasserole.jpg");
+itemObj.setItemName("Patrick and Spongebob");
+itemObj.setDescription("Patrick and Spongebob description");
+itemObj.setCategory("Classic");
+itemObj.setImageURL("images/patrickspongebob.jpg");
 
 appItems.push(itemObj);
 console.log(appItems);
@@ -62,7 +62,7 @@ console.log(appItems);
 var category1 = [appItems[0], appItems[1], appItems[2]];
 var category2 = [appItems[3], appItems[4], appItems[5]];
 
-var itemsPerCategory = [{ categoryName: "Appetizer", items: category1 }, { categoryName: "Main Dish", items: category2 }];
+var itemsPerCategory = [{ categoryName: "Modern", items: category1 }, { categoryName: "Classic", items: category2 }];
 
 var getItems = function () {
     return itemsPerCategory;

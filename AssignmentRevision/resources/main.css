@@ -3,7 +3,7 @@ article, aside, figure, footer, header, nav, section {
     display: block;
 }
 html {
-    background-image: -moz-linear-gradient(top, white 0%, #facd8a 100%);
+    background-image: -moz-linear-gradient(top, white 0%, green 100%);
 }
 body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -20,7 +20,7 @@ section, aside, h1, h2, p, ul {
 }
 section, aside {
     margin-top: 1.5em;
-    margin-bottom: 1em;    
+    margin-bottom: 1em;
 }
 
 h1 { font-size: 175%; }
@@ -31,23 +31,23 @@ a:link { color: darkcyan; }
 a:visited { color: darkcyan; }
 a:hover, a:focus { color: blue; }
 
-ul { 
+ul {
     margin-left: 1.5em;
-    margin-bottom: 1.5em; 
+    margin-bottom: 1.5em;
 }
 li { padding-bottom: 0.25em; }
 
 p { padding-bottom: 0.5em; }
-    
+
 em { font-weight: bold; }
 
 /* the styles for the header */
-header { 
+header {
     padding-bottom: 2em;
-    border-bottom: 2px solid coral;
+    border-bottom: 2px solid black;
 }
 header h1 {
-    color: coral;
+    color: black;
     margin-left: 120px;
     margin-bottom: 0.25em;
 }
@@ -56,7 +56,7 @@ header h2 {
     font-style: italic;
     margin-left: 120px;
 }
-header img { 
+header img {
     float: left;
 }
 
@@ -65,7 +65,7 @@ header img {
     clear: left;
     margin: 0;
     padding: 0;
-    border-bottom: 2px solid coral;
+    border-bottom: 2px solid black;
     text-align: center;
 }
 #nav_bar ul {
@@ -95,10 +95,10 @@ section {
     width: 520px;
     padding-right: 20px;
     padding-left: 20px;
-    float: left;    
+    float: left;
 }
 section h1 {
-    margin-bottom: 0.35em; 
+    margin-bottom: 0.35em;
 }
 section h2 {
     margin-bottom: 0.35em;
@@ -123,11 +123,11 @@ section label {
     width: 8em;
     margin-bottom: 0.5em;
     font-weight: bold;
-    padding-top: 0.25em;    
+    padding-top: 0.25em;
 }
 section input[type="text"], input[type="email"], input[type="password"] {
     width: 12em;
-    margin-left: 0.5em;    
+    margin-left: 0.5em;
     margin-bottom: 0.5em;
 }
 section input[type="submit"] {
@@ -166,7 +166,7 @@ th, td {
     float: left;
     width: 10em;
     font-weight: bold;
-    padding-top: 0.25em;    
+    padding-top: 0.25em;
 }
 .profile input[type="text"], input[type="email"], input[type="password"] {
     float: left;
@@ -214,7 +214,7 @@ th, td {
 #admin label {
     width: 14em;
     margin-left: .5em;
-    padding-top: 0.25em;    
+    padding-top: 0.25em;
 }
 #admin .left_margin {
     margin-left: 0em;
@@ -235,20 +235,20 @@ aside p {
     margin-bottom: .5em;
 }
 aside img {
-    margin-bottom: 1em;    
+    margin-bottom: 1em;
 }
-#sidebarA { 
-    width: 180px; 
-    float: left; 
+#sidebarA {
+    width: 180px;
+    float: left;
     height: 400px;
-    border-right: 2px solid #ef9c00;
+    border-right: 2px solid black;
 }
-#sidebarB { 
-    width: 180px; 
-    float: right; 
+#sidebarB {
+    width: 180px;
+    float: right;
     height: 400px;
     padding-left: 20px;
-    border-left: 2px solid #ef9c00;
+    border-left: 2px solid black;
 }
 
 
@@ -256,7 +256,7 @@ aside img {
 footer {
     clear: both;
     margin-top: 1em;
-    border-top: 2px solid #ef9c00;
+    border-top: 2px solid black;
     padding-top: 0.7em;
 }
 footer p {

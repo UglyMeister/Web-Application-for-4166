@@ -5,7 +5,7 @@ let userObj = new User();
 
 userObj.setUserID(1);
 userObj.setUserName("Fred");
-userObj.setEmail("fyork@mail.com");
+userObj.setEmail("fyork@gmail.com");
 
 userObj
 appUsers.push(userObj);

@@ -31,7 +31,13 @@ class User {
     getEmail() {
         return this.email;
     };
+
+    getPassword(){
+      return this.password;
+    }
+    setPassword(pass){
+      this.password = pass;
+    }
 }
 // return an object with property values set above
 module.exports = User;
-

@@ -4,6 +4,8 @@ var express = require('express');
 var router = express.Router();
 
 var ItemDB = require('../util/ItemDB');
+//db stuff
+var mongoose = require('mongoose');
 //create variable to hold the needed information for rendering
 var viewAddress;
 var viewData;
@@ -11,17 +13,29 @@ var viewData;
 // at the start of application load the catalog
 var itemArray = ItemDB.getItems();
 //console.log("items list length: "+itemArray.length);
-
+//connect to mongodb database
+mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
+//define schema
+var itemSchema = new mongoose.Schema({
+  itemCode: Number,
+  name: String,
+  category: String,
+  description: String,
+  rating: String,
+  image: String
+});
+//create model
+var item = mongoose.model('Item', itemSchema, 'Item');
 /* GET home page. */
 router.get("/*",function (request, response,next) {
     //checking session
     console.log("checking for session data");
     let sessionProfile = request.session.currentProfile;
-    
+
     if (typeof sessionProfile != 'undefined'){ //session data exists. Use that.
         //console.log("session profile " + sessionProfile);
         //add user to view
-        response.locals.theUser = request.session.theUser;   
+        response.locals.theUser = request.session.theUser;
     }
     next();
 });
@@ -32,7 +46,7 @@ response.render("index");
 });
 
 router.get('/categories', function (req, res) {
-    //get items list from database 
+    //get items list from database
 
     // validate request to set view address and data
     var viewData = catalogValidation(req, res);
@@ -40,7 +54,7 @@ router.get('/categories', function (req, res) {
     //console.log("items list: "+viewData.view    );
 
     //console.log("in categories: "+JSON.stringify(viewData.data));
-    
+
     res.render(viewData.view, {data:viewData.data});
 });
 
@@ -48,7 +62,7 @@ router.get('/categories/:categoryName', function (req, res) {
     var categoryName = req.params.categoryName;
     //console.log("Category Name:" + categoryName);
 
-    // this route displays catalog of items for one category 
+    // this route displays catalog of items for one category
 
     // validate request to set view address and data
     var viewData = catalogValidation(req, res);
@@ -91,7 +105,7 @@ var catalogValidation = function (req, res) {
 
     //Check If the catalog request parameter exists and validates (is not null and is not empty and is a valid category)
     if (req.params.categoryName != null && req.params.categoryName != "") {
-        //Get the items of this category from the items list 
+        //Get the items of this category from the items list
         //console.log("req.params.categoryName: " + req.params.categoryName);
         //Set viewAddress to catalog view
         viewAddress = 'catalog';
@@ -104,18 +118,18 @@ var catalogValidation = function (req, res) {
         //Check if the itemCode request parameter exists and validates (is not null and is not empty)
         //Check if the itemCode exists in the items list
     } else if (req.params.itemCode != null && req.params.itemCode != "") {
-        //Set viewAddress to item view 
+        //Set viewAddress to item view
         //console.log("req.params.itemCode: " + req.params.itemCode);
         viewAddress = 'item';
-        //Get item object from items list  
+        //Get item object from items list
         viewData = ItemDB.getItem(req.params.itemCode);
         console.log("view Data :" + JSON.stringify(viewData));
         //Set viewData to this item object
 
         //return data and how to display it
         catalog = { view: viewAddress, data: viewData };
-        return catalog;   
-    } else { // If the itemCode does not validate 
+        return catalog;
+    } else { // If the itemCode does not validate
         // Default - Categories view including the complete item catalog
         //return data and how to display it
 

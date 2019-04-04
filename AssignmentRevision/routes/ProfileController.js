@@ -9,12 +9,34 @@ var router = express.Router();
 let UserDB = require('./../util/UserDB');
 let ItemFeedbackDB = require('./../util/ItemFeedbackDB');
 let ItemDB = require('./../util/ItemDB');
+//db stuff
+var mongoose = require('mongoose');
 let UserProfile = require('./../models/UserProfile');
 let UserItem = require('./../models/UserItem');
 
 //session handling
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+//connect to mongodb database
+mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
+//establish schemas
+var userSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  email: String,
+  password: String
+});
+var itemSchema = new mongoose.Schema({
+  itemCode: Number,
+  name: String,
+  category: String,
+  description: String,
+  rating: String,
+  image: String
+});
+//create models
+var user = mongoose.model('User', userSchema, 'users');
+var item = mongoose.model('Item', itemSchema, 'Item');
 
 router.use(cookieParser());
 router.use(session({ secret: "nbad session secret" }));
@@ -38,7 +60,7 @@ router.all('/profile', (request, response, next) => {
     //set default user object using hardcoded data from DB
 
     //get a user as if they logged in
-    let theUser = UserDB.getUser("norm@mail.com");
+    let theUser = UserDB.getUser("fyork@gmail.com");
     request.session.theUser = theUser;
     console.log("user added to sesion " + theUser);
     //add user to view data
@@ -70,7 +92,7 @@ router.get('/profile', (request, response) => {
     //set default user object using hardcoded data from DB
 
     //get a user as if they logged in
-    let theUser = UserDB.getUser("norm@mail.com");
+    let theUser = UserDB.getUser("fyork@gmail.com");
     request.session.theUser = theUser;
     console.log("user added to sesion " + theUser);
 
@@ -97,7 +119,7 @@ router.get('/profile', (request, response) => {
     delete response.locals.theUser;
     return response.render('index');
   }
-  //before forwarding to view, check if profile is empty  
+  //before forwarding to view, check if profile is empty
   let userProfile = request.session.currentProfile;
   if (userProfile == null || userProfile.length == 0) {
     request.emptyProfile = "Your profile is empty";
@@ -131,7 +153,7 @@ router.post('/profile', function (request, response) {
     delete response.locals.theUser;
     respData = {};
   }
-  //before forwarding to view, check if cart is empty after updates 
+  //before forwarding to view, check if cart is empty after updates
   let userProfile = request.session.currentProfile;
   if (userProfile == null || userProfile.length == 0) {
     request.emptyProfile = "Your profile is empty";
@@ -150,7 +172,7 @@ let showProfile = function (request, response) {
     request.session.currentProfile = userProfile;
   }
   viewAddress = 'myItems';
-  // Get item object from items list  
+  // Get item object from items list
   viewData = userProfile;
   //console.log("view Data :" + JSON.stringify(viewData));
   // Set viewData to this item object
@@ -187,7 +209,7 @@ let updateProfile = function (request, response) {
         //return "/profile/feedback";
 
         viewAddress = "feedback";
-        // Get item object from items list  
+        // Get item object from items list
         viewData = userItem;
         //console.log("view Data :" + JSON.stringify(viewData));
         // Set viewData to this item object
@@ -219,7 +241,7 @@ let isItemInProfile = function (userProfile, itemCodeParam) {
 let addItem = function (request) {
   console.log("add item to profile function");
 
-  //if request makes it here that means it was validated: 
+  //if request makes it here that means it was validated:
   //user verified.
   //requested item is in view
   //requested item is not already in user profile

@@ -9,23 +9,31 @@
     <%
     console.log("in catalog view")
     %>
-    <%
-        for(var j=0; j< data.length;j++){
-    %>
     <h2>
-        <%= data[j].categoryName %>
-
+        <%= data[0].category %>
+        <%
+            for(var i=0; i< 3;i++){
+        %>
+        <p>
+            <a href="/categories/item/<%= data[i].itemCode %>">
+                <%= data[i].name %>
+            </a>
+        </p>
+        <% } %>
     </h2>
-    <%
-        for(var i=0; i< data[j].items.length;i++){ 
-    %>
-    <p>
-        <a href="/categories/item/<%= data[j].items[i].itemCode %>">
-            <%= data[j].items[i].name %>
-        </a>
-    </p>
-    <% } %>
-    <% } %>
+    <h2>
+        <%= data[3].category %>
+        <%
+            for(var i=3; i< 6;i++){
+        %>
+        <p>
+            <a href="/categories/item/<%= data[i].itemCode %>">
+                <%= data[i].name %>
+            </a>
+        </p>
+        <% } %>
+    </h2>
+
 </section>
 
 

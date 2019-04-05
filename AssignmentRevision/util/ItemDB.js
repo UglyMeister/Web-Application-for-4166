@@ -64,19 +64,23 @@ var category2 = [appItems[3], appItems[4], appItems[5]];
 
 var itemsPerCategory = [{ categoryName: "Modern", items: category1 }, { categoryName: "Classic", items: category2 }];
 
+
+
 var getItems = function (db) {
     //return itemsPerCategory;
-    return new Promise((resolve, reject) => {
-      db.find({}).then(data => {
-        console.log("in find all " + data);
-        resolve(data);
-      })
-    })
+    // return new Promise((resolve, reject) => {
+    //   db.find({}).then(data => {
+    //     console.log("in find all " + data);
+    //     resolve(data);
+    //   })
+    // })
+    return promise = db.find({}).exec();
 };
 
-var getItem = function (itemID) {
+var getItem = function (db, itemID) {
     //this is hardcoded should be updated find item from items list with specified item ID
-    return appItems[itemID - 1];
+    //return appItems[itemID - 1];
+    return promise = db.find({itemCode: itemID}).exec();
 };
 var exists = function (itemID) {
     //this is hardcoded should be updated find item from items list with specified item ID

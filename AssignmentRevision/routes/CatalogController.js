@@ -20,15 +20,21 @@ var itemSchema = new mongoose.Schema({
 
 var ItemModel = db.model('Item', itemSchema);
 // at the start of application load the catalog
-var itemArray = ItemDB.getItems(ItemModel);
+var itemArray = [];
 //console.log("items list length: "+itemArray.length);
+
+ItemDB.getItems(ItemModel).then(function(doc){
+  for(var i = 0; i < doc.length; i++){
+    itemArray[i] = doc[i];
+  }
+});
 
 
 /* GET home page. */
 router.get("/*",function (request, response,next) {
     //checking session
     console.log("checking for session data");
-    console.log("itemArray[0]\n" + itemArray[0]);
+    //console.log("itemArray[0]\n" + itemArray[0].name);
     let sessionProfile = request.session.currentProfile;
 
     if (typeof sessionProfile != 'undefined'){ //session data exists. Use that.
@@ -121,7 +127,13 @@ var catalogValidation = function (req, res) {
         //console.log("req.params.itemCode: " + req.params.itemCode);
         viewAddress = 'item';
         //Get item object from items list
-        viewData = ItemDB.getItem(req.params.itemCode);
+        for(var i = 0; i < itemArray.length; i++){
+          if(itemArray[i].itemCode == req.params.itemCode){
+            console.log("matching item codes");
+            viewData = itemArray[i];
+          }
+        }
+        //viewData = ItemDB.getItem(req.params.itemCode);
         console.log("view Data :" + JSON.stringify(viewData));
         //Set viewData to this item object
 

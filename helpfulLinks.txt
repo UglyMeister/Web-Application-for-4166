@@ -1,0 +1,7 @@
+https://docs.mongodb.com/manual/crud/
+https://mongoosejs.com/docs/guide.html#query-helpers
+https://mongoosejs.com/docs/advanced_schemas.html
+https://github.com/Automattic/mongoose/issues/6850
+https://mongoosejs.com/docs/promises.html#built-in-promises
+https://mongoosejs.com/docs/api.html
+https://stackoverflow.com/questions/18938469/set-variable-to-result-of-mongoose-find

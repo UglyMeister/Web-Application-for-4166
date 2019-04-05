@@ -9,8 +9,16 @@ var db = mongoose.connection;
 //create variable to hold the needed information for rendering
 var viewAddress;
 var viewData;
+var itemSchema = new mongoose.Schema({
+  itemCode: Number,
+  name: String,
+  category: String,
+  description: String,
+  rating: Number,
+  image: String
+});
 
-var ItemModel = db.model('Item');
+var ItemModel = db.model('Item', itemSchema);
 // at the start of application load the catalog
 var itemArray = ItemDB.getItems(ItemModel);
 //console.log("items list length: "+itemArray.length);
@@ -20,7 +28,7 @@ var itemArray = ItemDB.getItems(ItemModel);
 router.get("/*",function (request, response,next) {
     //checking session
     console.log("checking for session data");
-    console.log(itemArray);
+    console.log("itemArray[0]\n" + itemArray[0]);
     let sessionProfile = request.session.currentProfile;
 
     if (typeof sessionProfile != 'undefined'){ //session data exists. Use that.

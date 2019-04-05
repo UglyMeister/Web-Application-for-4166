@@ -1,4 +1,4 @@
-/* @nanajjar */
+
 let appUsers = [];
 var User = require('../models/User');
 let userObj = new User();

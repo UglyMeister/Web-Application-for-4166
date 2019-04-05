@@ -1,4 +1,4 @@
-/* @nanajjar */
+
 
 let usersItemFeedback = {};
 usersItemFeedback["1"] = [{ itemId: "1", rating: 4, flag: "No" },

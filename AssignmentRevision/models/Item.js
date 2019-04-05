@@ -1,4 +1,3 @@
-/* @nanajjar */
 class Item {
     constructor(itemCode, name, category, desc, rating, image) {
         this.itemCode =itemCode ;
@@ -38,9 +37,8 @@ setDescription(iDesc) {
 setImageURL(iUrl) {
     this.image = iUrl;
 };
-getImageURL() { 
+getImageURL() {
     return this.image;
 };
 }
 module.exports = Item;
-

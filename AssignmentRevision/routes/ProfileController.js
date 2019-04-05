@@ -1,4 +1,3 @@
-/* @nanajjar */
 
 var express = require('express');
 var router = express.Router();
@@ -9,34 +8,14 @@ var router = express.Router();
 let UserDB = require('./../util/UserDB');
 let ItemFeedbackDB = require('./../util/ItemFeedbackDB');
 let ItemDB = require('./../util/ItemDB');
-//db stuff
-var mongoose = require('mongoose');
+
 let UserProfile = require('./../models/UserProfile');
 let UserItem = require('./../models/UserItem');
 
 //session handling
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-//connect to mongodb database
-mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
-//establish schemas
-var userSchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  email: String,
-  password: String
-});
-var itemSchema = new mongoose.Schema({
-  itemCode: Number,
-  name: String,
-  category: String,
-  description: String,
-  rating: String,
-  image: String
-});
-//create models
-var user = mongoose.model('User', userSchema, 'users');
-var item = mongoose.model('Item', itemSchema, 'Item');
+
 
 router.use(cookieParser());
 router.use(session({ secret: "nbad session secret" }));

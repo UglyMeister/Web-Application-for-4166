@@ -1,35 +1,26 @@
-/* @nanajjar */
-
 var express = require('express');
 var router = express.Router();
 
 var ItemDB = require('../util/ItemDB');
-//db stuff
+var ItemClass = require('../models/Item');
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
+var db = mongoose.connection;
 //create variable to hold the needed information for rendering
 var viewAddress;
 var viewData;
 
+var ItemModel = db.model('Item');
 // at the start of application load the catalog
-var itemArray = ItemDB.getItems();
+var itemArray = ItemDB.getItems(ItemModel);
 //console.log("items list length: "+itemArray.length);
-//connect to mongodb database
-mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
-//define schema
-var itemSchema = new mongoose.Schema({
-  itemCode: Number,
-  name: String,
-  category: String,
-  description: String,
-  rating: String,
-  image: String
-});
-//create model
-var item = mongoose.model('Item', itemSchema, 'Item');
+
+
 /* GET home page. */
 router.get("/*",function (request, response,next) {
     //checking session
     console.log("checking for session data");
+    console.log(itemArray);
     let sessionProfile = request.session.currentProfile;
 
     if (typeof sessionProfile != 'undefined'){ //session data exists. Use that.
@@ -132,7 +123,6 @@ var catalogValidation = function (req, res) {
     } else { // If the itemCode does not validate
         // Default - Categories view including the complete item catalog
         //return data and how to display it
-
         catalog = { view: viewAddress, data: itemArray };
         console.log("catalog validation before return: "+catalog.view);
         console.log("catalog validation before return: "+JSON.stringify(itemArray[0]));

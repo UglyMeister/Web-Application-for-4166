@@ -1,7 +1,21 @@
 /* @nanajjar */
-let Item = require('../models/Item');
+//let Item = require('../models/Item');
 let appItems = [];
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
+
+var itemSchema = new mongoose.Schema({
+  itemCode: Number,
+  name: String,
+  category: String,
+  description: String,
+  rating: Number,
+  image: String
+});
+
+var Item = mongoose.model('Item', itemSchema, 'items');
+/*
 let itemObj = new Item();
 itemObj.setItemCode(1);
 itemObj.setItemName("Shaggy");
@@ -55,7 +69,7 @@ itemObj.setItemName("Patrick and Spongebob");
 itemObj.setDescription("Patrick and Spongebob description");
 itemObj.setCategory("Classic");
 itemObj.setImageURL("images/patrickspongebob.jpg");
-
+*/
 appItems.push(itemObj);
 console.log(appItems);
 

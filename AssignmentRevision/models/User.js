@@ -22,7 +22,7 @@ class User {
         this.name = uName;
     };
 
-    geUserName() {
+    getUserName() {
         return this.name;
     };
     setEmail(uEmail) {

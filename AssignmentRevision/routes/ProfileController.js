@@ -16,6 +16,79 @@ let UserItem = require('./../models/UserItem');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
+var db = mongoose.connection;
+
+var userSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  email: String,
+  password: String
+});
+// var userItemSchema = new mongoose.Schema({
+//   item:{
+//     itemCode: Number,
+//     name: String,
+//     category: String,
+//     description: String,
+//     rating: Number,
+//     image: String
+//   },
+//   madeIt: String
+// });
+var userProfileSchema = new mongoose.Schema({
+  uid: Number,
+  item: [{
+    itemCode: Number,
+    rating: Number,
+    flag: String
+  }]
+});
+var ItemModel = db.model('Item');
+var UserModel = db.model('User', userSchema);
+var UserProfileModel = db.model('UserProfile', userProfileSchema, 'userProfiles');
+
+var tempUser;
+var tempProfile;
+
+
+
+function startUser(){
+  UserModel.find({email: "fyork@gmail.com"}).exec().then(function(doc){
+    console.log(doc);
+    tempUser.uid = doc.uid;
+    tempUser.name = doc.name;
+    tempUser.email = doc.email;
+    tempUser.password = doc.password;
+    UserDB.addUser2(tempUser);
+  });
+}
+function startProfile(){
+  UserProfileModel.find({uid: 1}).exec().then(function(doc){
+    console.log(doc);
+    tempProfile.uid = doc.uid;
+    for(var i = 0; i < doc.item.length; i++){
+      tempProfile.item[i].itemCode = doc.item[i].itemCode;
+      tempProfile.item[i].rating = doc.item[i].rating;
+      tempProfile.item[i].flag = doc.item[i].flag;
+    }
+    ItemFeedbackDB.setUserItems(tempProfile);
+  });
+}
+startUser();
+startProfile();
+// UserDB.addUser2(tempUser);
+//
+// ItemFeedbackDB.setUserItems(tempProfile);
+// UserDB.addUser2(UserModel.find({email: "fyork@gmail.com"}).exec());
+// ItemFeedbackDB.setUserItems(UserProfileModel.find({uid: 1}).exec());
+// UserModel.find({email: "fyork@gmail.com"}).exec().then(function(doc){
+//   UserDB.addUser2(doc);
+// });
+// UserProfileModel.find({uid: 1}).exec().then(function(doc){
+//   ItemFeedbackDB.setUserItems(doc);
+// });
 
 router.use(cookieParser());
 router.use(session({ secret: "nbad session secret" }));

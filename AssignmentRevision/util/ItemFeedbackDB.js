@@ -1,8 +1,22 @@
 
+let currentUser;
+let usersItemFeedback = [];
+// usersItemFeedback["1"] = [{ itemId: "1", rating: 4, flag: "No" },
+// { itemId: "4", rating: 1, flag: "Yes" }, { itemId: "3", rating: 0, flag: "Yes" }];
 
-let usersItemFeedback = {};
-usersItemFeedback["1"] = [{ itemId: "1", rating: 4, flag: "No" },
-{ itemId: "4", rating: 1, flag: "Yes" }, { itemId: "3", rating: 0, flag: "Yes" }];
+let setUserItems = async function(db){
+  
+  console.log("setUserItems: " + db);
+  // currentUser = db[0].uid;
+  // for(var i = 0; i < db.length; i++){
+  //   usersItemFeedback[i] = db[i].item;
+  // }
+
+  currentUser = db.uid;
+  for(var i = 0; i < db.item.length; i++){
+    usersItemFeedback[i] = db.item[i];
+  }
+};
 
 let insert = function (userID, userItem) {
 
@@ -98,3 +112,4 @@ module.exports.insert = insert;
 module.exports.selectUserItems = selectUserItems;
 module.exports.update = update;
 module.exports.removeItem = removeItem;
+module.exports.setUserItems = setUserItems;

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <% include header.ejs %>
-    <link type="text/css" rel="stylesheet" href="../assets/stylesheets/item.css">
+    <link type="text/css" rel="stylesheet" href="../assets/stylesheets/feedback.css">
   </head>
 
   <body>
@@ -17,22 +17,27 @@
     <div class="main">
       <p><h3>DOGE</h3></p>
       <p><h4>Set a Rating:</h4></p>
-      <select name="rating">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <br>
-      <form class="noLeft" action="/item">
-        <input type="checkbox" name="used" value="used">Used it<br>
-        <input type="submit" name="confirm" value="Confirm">
+      <form class="noLeft" action="updateRating" method="get">
+        <select name="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <input type="submit" name="Update Rating" value="Update">
       </form>
-      <br><br>
+      <br>
+      <form class="noLeft" action="updateFlag" method="get">
+        <select name="flag">
+          <option value="false">No</option>
+          <option value="true">Yes</option>
+        </select>
+        <input type="submit" name="Update Flag" value="Update">
+      </form>
+      <br>
       <img id="mainImg" src="../assets/images/doge.jpg" alt="n/a" width="160" height="90">
-      <br><br><br><br><br>
-      <p><h4>Rating: 5/5</h4></p>
+      <br><br><br><br><br><br>
       <p>&nbsp;&nbsp;&nbsp;This is the doge meme, a common yet widely repsected and revered meme.  This meme has stood the test of time and is more or less a symbol or icon of memery itself.  Disregarding the meme stigma of "overused memes", the doge is still a widely used and loved meme format even though it is the most recognizable and most commonly used format to date.</p>
       <p>&nbsp;&nbsp;&nbsp;Most common uses of this meme format involve ironic or otherwise out of context quotes.  This format is generally used to represet one's confusion or complacence with a given situation or just to state a fact about the current state of reality.</p>
     </div>

@@ -8,12 +8,12 @@ var blbText = "placeholder";
 var patrickText = "placeholder";
 
 //follows the model set by item.js
-var shaggy = item.newItem(1,"Shaggy","Modern",shaggyText,"4/5");
-var emoji = item.newItem(2,"Emoji","Modern",emojiText,"4/5");
-var b = item.newItem(3,"B","Modern",bText,"3/5");
-var doge = item.newItem(4,"DOGE","Classic",dogeText,"5/5");
-var blb = item.newItem(5,"Bad Luck Brian","Classic",blbText,"2/5");
-var patrick = item.newItem(6,"Patrick and Spongebob","Classic",patrickText,"4/5");
+var shaggy = item.newItem(1,"Shaggy","Modern",shaggyText,"0");
+var emoji = item.newItem(2,"Emoji","Modern",emojiText,"0");
+var b = item.newItem(3,"B","Modern",bText,"0");
+var doge = item.newItem(4,"DOGE","Classic",dogeText,"0");
+var blb = item.newItem(5,"Bad Luck Brian","Classic",blbText,"0");
+var patrick = item.newItem(6,"Patrick and Spongebob","Classic",patrickText,"0");
 
 //creates an array consisting of the objects created above
 var getItems = function(){

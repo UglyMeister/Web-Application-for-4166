@@ -1,0 +1,42 @@
+<% include ./includes/header.ejs %>
+<% include ./includes/siteNavigation.ejs %>
+
+
+<!-- start the middle column -->
+
+<section>
+    <h1>Norm's Recipe Book</h1>
+    <%
+    console.log("in catalog view")
+    %>
+    <h2>
+        <%= data[0].category %>
+        <%
+            for(var i=0; i< 3;i++){
+        %>
+        <p>
+            <a href="/categories/item/<%= data[i].itemCode %>">
+                <%= data[i].name %>
+            </a>
+        </p>
+        <% } %>
+    </h2>
+    <h2>
+        <%= data[3].category %>
+        <%
+            for(var i=3; i< 6;i++){
+        %>
+        <p>
+            <a href="/categories/item/<%= data[i].itemCode %>">
+                <%= data[i].name %>
+            </a>
+        </p>
+        <% } %>
+    </h2>
+
+</section>
+
+
+<!-- end the middle column -->
+
+<% include ./includes/footer %>

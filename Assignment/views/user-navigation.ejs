@@ -1,4 +1,5 @@
 <header>
     <h1>Fred's Meme Extravaganza</h1>
-    <h2 class="topNav"><p><a href="#">Sign In</a> | <a href="/myItems">My Memes</a> | <a href="#">Cart</a></p></h2>
+    <h2 class="topNav"><p><a <% if(session == null || session.theUser == null){ %>href="signin">Sign In<% } if(session != null && session.theUser != null){ %>href="signout">Sign Out<% } %></a> | <a href="/myItems">My Memes</a> | <a href="#">Cart</a></p></h2>
+
 </header>

@@ -20,7 +20,7 @@
       <form action="/catalog">
         <input type="submit" name="back" value="Return to categories">
       </form>
-      <button type="button" name="rate">Rate this Meme</button><form action="/myItems"><input type="submit" name="myItems" value="Add to My Items"></form>
+      <form action="/myItems/save"><input type="submit" name="elementCode" value=<%=reqItem.code %> ></form>
       <br><br><br>
       <p><h4>Rating: <%= reqItem.rating %></h4></p>
       <p>&nbsp;&nbsp;&nbsp;<%= reqItem.description %></p>

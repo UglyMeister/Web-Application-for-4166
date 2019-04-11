@@ -21,7 +21,7 @@ let addUser = function (id, name, email) {
 };
 
 let addUser2 = async function (db){
-  
+
   console.log("addUser2: " + db);
   userObj = new User();
 
@@ -45,20 +45,22 @@ let addUser2 = async function (db){
 };
 
 
-let getUser = function (email) {
-    console.log("looking for user");
-    for (let i =0;i<appUsers.length;i++){
-        console.log(appUsers[i]);
-        if (appUsers[i].email == email) {
-            console.log("User found with email " + email);
-            return appUsers[i];
-        }
-    }
-    return null;
+let getUser = function (db, email) {
+    // console.log("looking for user");
+    // for (let i =0;i<appUsers.length;i++){
+    //     console.log(appUsers[i]);
+    //     if (appUsers[i].email == email) {
+    //         console.log("User found with email " + email);
+    //         return appUsers[i];
+    //     }
+    // }
+    // return null;
+    return promise = db.find({email: email}).exec();
 };
 
-let getAllUsers = function () {
-    return appUsers;
+let getAllUsers = function (db) {
+    // return appUsers;
+    return promise = db.find().exec();
 };
 
 let emailExists = function (email) {

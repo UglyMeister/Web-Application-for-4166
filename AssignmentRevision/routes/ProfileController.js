@@ -20,11 +20,14 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/Assignment', {useNewUrlParser: true});
 var db = mongoose.connection;
 
+var userArray = [];
+
 var userSchema = new mongoose.Schema({
   id: Number,
   name: String,
   email: String,
-  password: String
+  password: String,
+  item: Array
 });
 // var userItemSchema = new mongoose.Schema({
 //   item:{
@@ -37,47 +40,54 @@ var userSchema = new mongoose.Schema({
 //   },
 //   madeIt: String
 // });
-var userProfileSchema = new mongoose.Schema({
-  uid: Number,
-  item: [{
-    itemCode: Number,
-    rating: Number,
-    flag: String
-  }]
-});
+// var userProfileSchema = new mongoose.Schema({
+//   uid: Number,
+//   item: [{
+//     itemCode: Number,
+//     rating: Number,
+//     flag: String
+//   }]
+// });
 var ItemModel = db.model('Item');
 var UserModel = db.model('User', userSchema);
-var UserProfileModel = db.model('UserProfile', userProfileSchema, 'userProfiles');
+// var UserProfileModel = db.model('UserProfile', userProfileSchema, 'userProfiles');
 
-var tempUser;
-var tempProfile;
+// var tempUser;
+// var tempProfile;
 
+UserDB.getAllUsers(UserModel).then(function(doc){
+  for(var i = 0; i < doc.length; i++){
+    userArray[i] = doc[i];
+  }
+});
 
+//THIS IS THE CURRENT STOPPING POINT, BEGIN WORKING AGAIN HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-function startUser(){
-  UserModel.find({email: "fyork@gmail.com"}).exec().then(function(doc){
-    console.log(doc);
-    tempUser.uid = doc.uid;
-    tempUser.name = doc.name;
-    tempUser.email = doc.email;
-    tempUser.password = doc.password;
-    UserDB.addUser2(tempUser);
-  });
-}
-function startProfile(){
-  UserProfileModel.find({uid: 1}).exec().then(function(doc){
-    console.log(doc);
-    tempProfile.uid = doc.uid;
-    for(var i = 0; i < doc.item.length; i++){
-      tempProfile.item[i].itemCode = doc.item[i].itemCode;
-      tempProfile.item[i].rating = doc.item[i].rating;
-      tempProfile.item[i].flag = doc.item[i].flag;
-    }
-    ItemFeedbackDB.setUserItems(tempProfile);
-  });
-}
-startUser();
-startProfile();
+// function startUser(){
+//   // UserModel.find({email: "fyork@gmail.com"}).exec().then(function(doc){
+//   //   console.log(doc);
+//   //   tempUser.uid = doc.uid;
+//   //   tempUser.name = doc.name;
+//   //   tempUser.email = doc.email;
+//   //   tempUser.password = doc.password;
+//   //   UserDB.addUser2(tempUser);
+//   // });
+//   UserDB.getUser(UserModel, "fyork@gmail.com");
+// }
+// function startProfile(){
+//   // UserProfileModel.find({uid: 1}).exec().then(function(doc){
+//   //   console.log(doc);
+//   //   tempProfile.uid = doc.uid;
+//   //   for(var i = 0; i < doc.item.length; i++){
+//   //     tempProfile.item[i].itemCode = doc.item[i].itemCode;
+//   //     tempProfile.item[i].rating = doc.item[i].rating;
+//   //     tempProfile.item[i].flag = doc.item[i].flag;
+//   //   }
+//   //   ItemFeedbackDB.setUserItems(tempProfile);
+//   // });
+// }
+// startUser();
+// startProfile();
 // UserDB.addUser2(tempUser);
 //
 // ItemFeedbackDB.setUserItems(tempProfile);

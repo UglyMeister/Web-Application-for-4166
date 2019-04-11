@@ -56,11 +56,15 @@ var UserModel = db.model('User', userSchema);
 // var tempProfile;
 
 UserDB.getAllUsers(UserModel).then(function(doc){
+  console.log("start assiging for array");
   for(var i = 0; i < doc.length; i++){
     userArray[i] = doc[i];
   }
 });
-
+for(var i = 0; i < userArray.length; i++){
+  console.log(userArray[i]);
+}
+console.log("done printing array");
 //THIS IS THE CURRENT STOPPING POINT, BEGIN WORKING AGAIN HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // function startUser(){
@@ -122,7 +126,7 @@ router.all('/profile', (request, response, next) => {
     //set default user object using hardcoded data from DB
 
     //get a user as if they logged in
-    let theUser = UserDB.getUser("fyork@gmail.com");
+    let theUser = UserDB.getUser(UserModel, "fyork@gmail.com");
     request.session.theUser = theUser;
     console.log("user added to sesion " + theUser);
     //add user to view data
@@ -154,7 +158,7 @@ router.get('/profile', (request, response) => {
     //set default user object using hardcoded data from DB
 
     //get a user as if they logged in
-    let theUser = UserDB.getUser("fyork@gmail.com");
+    let theUser = UserDB.getUser(UserModel, "fyork@gmail.com");
     request.session.theUser = theUser;
     console.log("user added to sesion " + theUser);
 

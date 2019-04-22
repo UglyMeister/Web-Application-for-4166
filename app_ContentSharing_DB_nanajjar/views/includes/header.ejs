@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Norm's Recipe Book</title>
+    <title>Fred's Meme Extravaganza</title>
     <link rel="stylesheet" href="/resources/main.css">
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
@@ -12,11 +12,10 @@
 <body>
 
     <header>
-        <img src="/resources/images/logo.jpg" alt="Norm Logo" width="58">
-        <h1>Norm's Recipe Book</h1>
+        <h1>Fred's Meme Extravaganza</h1>
 
         <%if (typeof theUser !== 'undefined'){ %>
-        <h6 id="headerWelcome"> Welcome <%= theUser.firstName %>!</h6>
+        <h6 id="headerWelcome"> Welcome <%= theUser.name %>!</h6>
         <% } %>
 
     </header>

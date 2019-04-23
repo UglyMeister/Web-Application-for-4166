@@ -1,0 +1,25 @@
+<% include ./includes/header.ejs %>
+<% include ./includes/siteNavigation.ejs %>
+
+
+<!-- start the middle column -->
+
+<section>
+        <h1>
+                Welcome to Norm's Recipe Book!
+            </h1>
+            <p>
+              Please enter your username and password
+            </p>
+            <form action="signin" method="post">
+              <label for="uname">Username</label><br>
+              <input id="uname" type="text" name="uname"><br>
+              <label for="pwd">Password</label><br>
+              <input id="pwd" type="text" name="pwd"><br>
+              <button type="submit" class="submitButton" name="action" value="signin">Sign In</button>
+            </form>
+</section>
+
+<!-- end the middle column -->
+
+<% include ./includes/footer %>

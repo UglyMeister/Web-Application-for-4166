@@ -18,9 +18,9 @@ var cookieParser = require('cookie-parser');
 
 var mongoose = require('mongoose');
 
-//connect to database - if it does not exist it will be created 
+//connect to database - if it does not exist it will be created
 mongoose.connect('mongodb://localhost/contentSharing', { useNewUrlParser: true });
-//define the schema - this can take place of the model  
+//define the schema - this can take place of the model
 // var userItem = new mongoose.Schema({
 //   user: String,
 //   item: Number,
@@ -50,27 +50,28 @@ router.all('/profile', async (request, response, next) => {
     //add user to view
     response.locals.theUser = request.session.theUser;
 
-  } else {//session tracking not started. Use hard-coded data
-    //set default user object using hardcoded data from DB
-
-    //get a user as if they logged in
-    let theUser = await UserDB.getUser("norm@mail.com");
-    request.session.theUser = theUser;
-    console.log("user added to sesion " + theUser);
-    //add user to view data
-    response.locals.theUser = request.session.theUser;
-
-    action = "showProfile";
-    let userProfile = new UserProfile();
-    let userItems = await UserItemDB.selectUserItems("norm@mail.com");
-    let userItemsArr = [];
-
-    if (userItems.length >= 1) {
-      userItemsArr = await makeProfileItemsForView(userItems);
-      userProfile.setItems(userItemsArr);
-      request.session.currentProfile = userProfile.getItems();
-    }
   }
+  // else {//session tracking not started. Use hard-coded data
+  //   //set default user object using hardcoded data from DB
+  //
+  //   //get a user as if they logged in
+  //   let theUser = await UserDB.getUser("norm@mail.com");
+  //   request.session.theUser = theUser;
+  //   console.log("user added to sesion " + theUser);
+  //   //add user to view data
+  //   response.locals.theUser = request.session.theUser;
+  //
+  //   action = "showProfile";
+  //   let userProfile = new UserProfile();
+  //   let userItems = await UserItemDB.selectUserItems("norm@mail.com");
+  //   let userItemsArr = [];
+  //
+  //   if (userItems.length >= 1) {
+  //     userItemsArr = await makeProfileItemsForView(userItems);
+  //     userProfile.setItems(userItemsArr);
+  //     request.session.currentProfile = userProfile.getItems();
+  //   }
+  // }
   next();
 });
 
@@ -82,25 +83,25 @@ router.get('/profile', async (request, response) => {
   let action = request.query.action;
   console.log("user profile GET action " + action);
 
-  if (typeof sessionProfile == 'undefined') {
-    //session tracking not started. Use hard-coded data
-    //set default user object using hardcoded data from DB
-
-    //get a user as if they logged in
-    let theUser = UserDB.getUser("norm@mail.com");
-    request.session.theUser = theUser;
-    console.log("user added to sesion " + theUser);
-
-    action = "showProfile";
-    let userProfile = new UserProfile();
-    let userItems = await UserItemDB.selectUserItems("norm@mail.com");
-    if (userItems.length >= 1) {
-      // viewURL = "/profile";
-      userProfile.setItems(userItems);
-      request.session.currentProfile = userProfile;
-    }
-    //console.log(userProfile);
-  }
+  // if (typeof sessionProfile == 'undefined') {
+  //   //session tracking not started. Use hard-coded data
+  //   //set default user object using hardcoded data from DB
+  //
+  //   //get a user as if they logged in
+  //   let theUser = UserDB.getUser("norm@mail.com");
+  //   request.session.theUser = theUser;
+  //   console.log("user added to sesion " + theUser);
+  //
+  //   action = "showProfile";
+  //   let userProfile = new UserProfile();
+  //   let userItems = await UserItemDB.selectUserItems("norm@mail.com");
+  //   if (userItems.length >= 1) {
+  //     // viewURL = "/profile";
+  //     userProfile.setItems(userItems);
+  //     request.session.currentProfile = userProfile;
+  //   }
+  //   //console.log(userProfile);
+  // }
 
   //console.log("updated session properties: " + JSON.stringify(request.session));
   if (action == null || action == "" || action == "showProfile") {
@@ -113,8 +114,23 @@ router.get('/profile', async (request, response) => {
     //remove user from locals
     delete response.locals.theUser;
     return response.render('index');
+  }else if (action == "signin"){
+    console.log("signin");
+
+    return response.render('login');
+    // let uname = request.body.uname;
+    // let pwd = request.body.pwd;
+    //
+    // let users = UserDB.getUsers();
+    // for(var i = 0; i < users.length; i++){
+    //   if(users[i].email == uname && users[i].password == pwd){
+    //     console.log("correct login info");
+    //     return response.render('index');
+    //   }
+    // }
+    // console.log("no valid login found");
   }
-  //before forwarding to view, check if profile is empty  
+  //before forwarding to view, check if profile is empty
   let userProfile = request.session.currentProfile;
   if (userProfile == null || userProfile.length == 0) {
     request.emptyProfile = "Your profile is empty";
@@ -147,8 +163,34 @@ router.post('/profile', async function (request, response) {
     request.session.destroy();
     delete response.locals.theUser;
     respData = {};
+  } else if (action == "signin"){
+    let uname = request.body.uname;
+    let pwd = request.body.pwd;
+
+    let users = await UserDB.getUsers();
+    for(var i = 0; i < users.length; i++){
+      if(users[i].email == uname && users[i].password == pwd){
+        console.log("correct login info");
+        let theUser = UserDB.getUser(uname);
+
+          request.session.theUser = theUser;
+          console.log("user added to sesion " + theUser);
+
+          action = "showProfile";
+          let userProfile = new UserProfile();
+          let userItems = await UserItemDB.selectUserItems(uname);
+          if (userItems.length >= 1) {
+            // viewURL = "/profile";
+            userProfile.setItems(userItems);
+            request.session.currentProfile = userProfile;
+          }
+          //console.log(userProfile);
+
+        respData = await showProfile(request, response);
+      }
+    }
   }
-  //before forwarding to view, check if cart is empty after updates 
+  //before forwarding to view, check if cart is empty after updates
   let userProfile = request.session.currentProfile;
   if (userProfile == null || userProfile.length == 0) {
     request.emptyProfile = "Your profile is empty";
@@ -166,7 +208,7 @@ let showProfile = function (request, response) {
     request.session.currentProfile = userProfile;
   }
   viewAddress = 'myItems';
-  // Get item object from items list  
+  // Get item object from items list
   viewData = userProfile;
   // Set viewData to this item object
 
@@ -199,7 +241,7 @@ let updateProfile = function (request, response) {
         //return "/profile/feedback";
 
         viewAddress = "feedback";
-        // Get item object from items list  
+        // Get item object from items list
         viewData = userItem;
         console.log("view Data :" + JSON.stringify(viewData));
         // Set viewData to this item object

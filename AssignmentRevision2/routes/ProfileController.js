@@ -178,6 +178,7 @@ router.post('/profile', async function (request, response) {
       console.log("correct user login info");
       let theUser = user;
       request.session.theUser = theUser;
+      response.locals.theUser = request.session.theUser;
       console.log("user added to sesion " + theUser);
 
       let userProfile = new UserProfile();
@@ -186,8 +187,11 @@ router.post('/profile', async function (request, response) {
         userProfile.setItems(userItems);
         request.session.currentProfile = userProfile;
       }
-
+      console.log(userProfile);
+      console.log(request.session.currentProfile);
+      //response.redirect('/profile');
       respData = await showProfile(request, response);
+      console.log(respData);
     } else {
       console.log("incorrect pwd");
       response.render('index');

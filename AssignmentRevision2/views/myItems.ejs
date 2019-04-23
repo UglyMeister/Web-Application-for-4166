@@ -17,20 +17,20 @@
             <th></th>
         </tr>
 
-        <% for(let i =0; i< data.length;i++) { %>
+        <% for(let i =0; i< data.userItems.length;i++) { %>
         <tr class="profile_row">
-            <td><%= data[i].item.name %></td>
-            <td><%= data[i].item.category %></td>
+            <td><%= data.userItems[i].item.name %></td>
+            <td><%= data.userItems[i].item.category %></td>
 
-            <td><%= data[i].rating %></td>
-            <td><%= data[i].madeIt %></td>
+            <td><%= data.userItems[i].rating %></td>
+            <td><%= data.userItems[i].madeIt %></td>
 
             <td>
                 <form action="profile" method="post">
-                    <% for(let j =0; j< data.length;j++) {%>
-                    <input type="hidden" name="itemList" value="<%= data[j].item.code %>" />
+                    <% for(let j =0; j< data.userItems.length;j++) {%>
+                    <input type="hidden" name="itemList" value="<%= data.userItems[j].item.code %>" />
                     <% } %>
-                    <input type="hidden" name="itemCode" value="<%= data[i].item.code %>" />
+                    <input type="hidden" name="itemCode" value="<%= data.userItems[i].item.code %>" />
 
                     <button type="submit" class="submitButton" name="action" value="update">Update</button>
                     <button type="submit" class="submitButton" name="action" value="delete">Delete</button>

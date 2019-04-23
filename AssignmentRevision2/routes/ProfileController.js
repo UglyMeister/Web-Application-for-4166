@@ -186,7 +186,7 @@ router.post('/profile', async function (request, response) {
         userProfile.setItems(userItems);
         request.session.currentProfile = userProfile;
       }
-      response.render('index', {data: userProfile})
+
       respData = await showProfile(request, response);
     } else {
       console.log("incorrect pwd");

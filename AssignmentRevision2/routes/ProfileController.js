@@ -167,28 +167,53 @@ router.post('/profile', async function (request, response) {
     let uname = request.body.uname;
     let pwd = request.body.pwd;
 
-    let users = await UserDB.getUsers();
-    for(var i = 0; i < users.length; i++){
-      if(users[i].email == uname && users[i].password == pwd){
-        console.log("correct login info");
-        let theUser = UserDB.getUser(uname);
-
-          request.session.theUser = theUser;
-          console.log("user added to sesion " + theUser);
-
-          action = "showProfile";
-          let userProfile = new UserProfile();
-          let userItems = await UserItemDB.selectUserItems(uname);
-          if (userItems.length >= 1) {
-            // viewURL = "/profile";
-            userProfile.setItems(userItems);
-            request.session.currentProfile = userProfile;
-          }
-          //console.log(userProfile);
-
-        respData = await showProfile(request, response);
-      }
+    let user = await UserDB.getUser(uname);
+    if(user == null){
+      console.log("no user found");
+      response.render('index');
     }
+    console.log("user: " + user);
+    console.log("password: " + user.password);
+    if(user.password == pwd){
+      console.log("correct user login info");
+      let theUser = user;
+      request.session.theUser = theUser;
+      console.log("user added to sesion " + theUser);
+
+      let userProfile = new UserProfile();
+      let userItems = await UserItemDB.selectUserItems(uname);
+      if(userItems.length >= 1){
+        userProfile.setItems(userItems);
+        request.session.currentProfile = userProfile;
+      }
+      response.render('index', {data: userProfile})
+      respData = await showProfile(request, response);
+    } else {
+      console.log("incorrect pwd");
+      response.render('index');
+    }
+
+    // for(var i = 0; i < users.length; i++){
+    //   if(users[i].email == uname && users[i].password == pwd){
+    //     console.log("correct login info");
+    //     let theUser = UserDB.getUser(uname);
+    //
+    //       request.session.theUser = theUser;
+    //       console.log("user added to sesion " + theUser);
+    //
+    //       action = "showProfile";
+    //       let userProfile = new UserProfile();
+    //       let userItems = await UserItemDB.selectUserItems(uname);
+    //       if (userItems.length >= 1) {
+    //         // viewURL = "/profile";
+    //         userProfile.setItems(userItems);
+    //         request.session.currentProfile = userProfile;
+    //       }
+    //       //console.log(userProfile);
+    //
+    //     respData = await showProfile(request, response);
+    //   }
+    // }
   }
   //before forwarding to view, check if cart is empty after updates
   let userProfile = request.session.currentProfile;

@@ -152,7 +152,7 @@ router.get('/profile', async (request, response) => {
 
 //post profile requests with action parameter
 router.post('/profile',[
-  check('uname').isEmail().normalizeEmail(),
+  check('uname').isEmail().normalizeEmail().trim(),
   check('pwd').isLength({min: 4}).trim()
 ], async function (request, response) {
   let action = request.body.action;

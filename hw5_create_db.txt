@@ -1,0 +1,19 @@
+use contentSharing
+
+db.Users.insert({ "email" : "norm@mail.com", "firstName" : "Norm", "lastName" : "Niner", "password" : "test" })
+
+db.Items.insert({"code" : 1111, "name" : "Shaggy", "description" : "Shaggy description", "category" : "Modern", "user" : "norm@mail.com" })
+
+db.Items.insert({"code" : NumberLong(1112), "name" : "Emoji", "description" : "Emoji description", "category" : "Modern", "user" : "norm@mail.com" })
+
+db.Items.insert({"code" : NumberLong(1113), "name" : "B", "description" : "B description", "category" : "Modern", "user" : "norm@mail.com" })
+
+db.Items.insert({"code" : NumberLong(1114), "name" : "Doge", "description" : "Doge description", "category" : "Classic", "user" : "norm@mail.com" })
+
+db.Items.insert({"code" : NumberLong(1115), "name" : "Bad Luck Brian", "description" : "Bad Luck Brian description", "category" : "Classic", "user" : "norm@mail.com" })
+
+db.Items.insert({"code" : NumberLong(1116), "name" : "Patrick and Spongebob", "description" : "Patrick and Spongebob description", "category" : "Classic", "user" : "norm@mail.com" })
+
+db.Feedback.insert({ "user" : "norm@mail.com", "item" : NumberLong(1111), "rating" : "3", "madeIt" : 0 })
+
+db.Feedback.insert({ "user" : "norm@mail.com", "item" : NumberLong(1112), "rating" : "2", "madeIt" : 1})

@@ -8,7 +8,7 @@ let UserItemDB = require('../util/UserItemDB');
 
 var mongoose = require('mongoose');
 
-//connect to database - if it does not exist it will be created 
+//connect to database - if it does not exist it will be created
 mongoose.connect('mongodb://localhost/contentSharing', { useNewUrlParser: true });
 
 //create variable to hold the needed information for rendering
@@ -19,10 +19,10 @@ var itemArray;
 router.get("/*", async function (request, response, next) {
     // at the start of application load the catalog
     //TODO - still using hard code categories to keep format used in viewes.
-    //this should be updated to use DB group by functionality rather than hardcoding categories. 
-    let appetizers = await ItemDB.getItems("Appetizer");
-    let mainDishes = await ItemDB.getItems("Main Dish");
-    itemArray = [{ categoryName: "Appetizer", items: appetizers }, { categoryName: "Main Dish", items: mainDishes }];
+    //this should be updated to use DB group by functionality rather than hardcoding categories.
+    let moderns = await ItemDB.getItems("Modern");
+    let classics = await ItemDB.getItems("Classic");
+    itemArray = [{ categoryName: "Modern", items: moderns }, { categoryName: "Classic", items: classics }];
 
     console.log("items list length: " + itemArray.length);
 
@@ -44,7 +44,7 @@ router.get('/', function (request, response, next) {
 });
 
 router.get('/categories', async function (req, res) {
-    //get items list from database 
+    //get items list from database
 
     // validate request to set view address and data
     var viewData = await catalogValidation(req, res);
@@ -58,7 +58,7 @@ router.get('/categories', async function (req, res) {
 
 router.get('/categories/:categoryName', function (req, res) {
     var categoryName = req.params.categoryName;
-    // this route displays catalog of items for one category 
+    // this route displays catalog of items for one category
 
     // validate request to set view address and data
     var viewData = catalogValidation(req, res);
@@ -88,7 +88,7 @@ var catalogValidation = async function (req, res) {
 
     //Check If the catalog request parameter exists and validates (is not null and is not empty and is a valid category)
     if (req.params.categoryName != null && req.params.categoryName != "") {
-        //Get the items of this category from the items list 
+        //Get the items of this category from the items list
         //Set viewAddress to catalog view
         viewAddress = 'catalog';
         //Set viewData to item list (narrowed down catalog)
@@ -100,10 +100,10 @@ var catalogValidation = async function (req, res) {
         //Check if the itemCode request parameter exists and validates (is not null and is not empty)
         //Check if the itemCode exists in the items list
     } else if (req.params.itemCode != null && req.params.itemCode != "") {
-        //Set viewAddress to item view 
+        //Set viewAddress to item view
         console.log("req.params.itemCode: " + req.params.itemCode);
         viewAddress = 'item';
-        //Get item object from items list  
+        //Get item object from items list
         viewData = await ItemDB.getItem(req.params.itemCode);
         let itemRating = await UserItemDB.selectItemsForAvg(req.params.itemCode);
         let rating = await getAvg(itemRating);
@@ -128,7 +128,7 @@ var catalogValidation = async function (req, res) {
 
         return catalog;
 
-    } else { // If the itemCode does not validate 
+    } else { // If the itemCode does not validate
         // Default - Categories view including the complete item catalog
         //return data and how to display it
 

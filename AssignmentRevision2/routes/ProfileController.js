@@ -15,6 +15,7 @@ let UserItemObj = require('./../models/UserItemObj');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 const {check, validationResult} = require('express-validator/check');
+const {sanitizer} = require('express-validator/filter');
 
 
 var mongoose = require('mongoose');
@@ -151,8 +152,8 @@ router.get('/profile', async (request, response) => {
 
 //post profile requests with action parameter
 router.post('/profile',[
-  check('uname').isEmail(),
-  check('pwd').isLength({min: 4})
+  check('uname').isEmail().normalizeEmail(),
+  check('pwd').isLength({min: 4}).trim()
 ], async function (request, response) {
   let action = request.body.action;
   const errors = validationResult(request);

@@ -14,6 +14,7 @@ let UserItemObj = require('./../models/UserItemObj');
 //session handling
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+const {check, validationResult} = require('express-validator/check');
 
 
 var mongoose = require('mongoose');
@@ -149,8 +150,12 @@ router.get('/profile', async (request, response) => {
 });
 
 //post profile requests with action parameter
-router.post('/profile', async function (request, response) {
+router.post('/profile',[
+  check('uname').isEmail(),
+  check('pwd').isLength({min: 4})
+], async function (request, response) {
   let action = request.body.action;
+  const errors = validationResult(request);
   console.log("user profile function requested " + action);
 
   if (action == null || action == "" || action == "showProfile") {
@@ -174,7 +179,9 @@ router.post('/profile', async function (request, response) {
   } else if (action == "signin"){
     uname = request.body.uname;
     pwd = request.body.pwd;
-
+    if(!errors.isEmpty()){
+      return response.status(422).json({errors: errors.array()});
+    }
     let user = await UserDB.getUser(uname);
     if(user == null || user.password != pwd){
       console.log("login failed");

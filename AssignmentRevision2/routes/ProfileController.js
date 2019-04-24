@@ -81,7 +81,9 @@ router.get('/profile', async (request, response) => {
   let sessionProfile = request.session.currentProfile;
 
   let action = request.query.action;
+  let failed = request.query.failed;
   console.log("user profile GET action " + action);
+  console.log("failed: " + failed);
 
   // if (typeof sessionProfile == 'undefined') {
   //   //session tracking not started. Use hard-coded data
@@ -116,8 +118,14 @@ router.get('/profile', async (request, response) => {
     return response.render('index');
   }else if (action == "signin"){
     console.log("signin");
+    if(failed == "true"){
+      console.log("failed login page");
+      return response.render('login', {failed: true});
+    } else {
+      console.log("normal login page");
+      return response.render('login', {failed: false});
+    }
 
-    return response.render('login');
     // let uname = request.body.uname;
     // let pwd = request.body.pwd;
     //
@@ -164,37 +172,33 @@ router.post('/profile', async function (request, response) {
     delete response.locals.theUser;
     respData = {};
   } else if (action == "signin"){
-    let uname = request.body.uname;
-    let pwd = request.body.pwd;
+    uname = request.body.uname;
+    pwd = request.body.pwd;
 
     let user = await UserDB.getUser(uname);
-    if(user == null){
-      console.log("no user found");
-      response.render('index');
-    }
-    console.log("user: " + user);
-    console.log("password: " + user.password);
-    if(user.password == pwd){
-      console.log("correct user login info");
+    if(user == null || user.password != pwd){
+      console.log("login failed");
+      response.redirect('/profile?action=signin&failed=true');
+    } else {
+      console.log("login success: " + user);
       let theUser = user;
       request.session.theUser = theUser;
+      console.log("user added to session " + theUser);
+
       response.locals.theUser = request.session.theUser;
-      console.log("user added to sesion " + theUser);
+      action = "showProfile";
 
       let userProfile = new UserProfile();
       let userItems = await UserItemDB.selectUserItems(uname);
-      if(userItems.length >= 1){
-        userProfile.setItems(userItems);
-        request.session.currentProfile = userProfile;
+      let userItemsArr = [];
+      if (userItems.length >= 1){
+        userItemsArr = await makeProfileItemsForView(userItems);
+        userProfile.setItems(userItemsArr);
+        request.session.currentProfile = userProfile.getItems();
       }
-      console.log(userProfile);
-      console.log(request.session.currentProfile);
-      //response.redirect('/profile');
+
       respData = await showProfile(request, response);
-      console.log(respData);
-    } else {
-      console.log("incorrect pwd");
-      response.render('index');
+      response.render(respData.view, {data: respData.data});
     }
 
     // for(var i = 0; i < users.length; i++){
@@ -223,9 +227,9 @@ router.post('/profile', async function (request, response) {
   let userProfile = request.session.currentProfile;
   if (userProfile == null || userProfile.length == 0) {
     request.emptyProfile = "Your profile is empty";
+  } else {
+    response.render(respData.view, { data: respData.data });
   }
-
-  response.render(respData.view, { data: respData.data });
 });
 
 let showProfile = function (request, response) {

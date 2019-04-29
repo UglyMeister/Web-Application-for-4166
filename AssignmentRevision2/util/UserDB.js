@@ -26,3 +26,16 @@ module.exports.getUser = function (userEmail) {
         })
     })
 }//end find item
+
+module.exports.addUser = function (userEmail, userPass, firstName, lastName){
+  var newUser = new User({
+    firstName: firstName,
+    lastName: lastName,
+    email: userEmail,
+    password: userPass
+  });
+  newUser.save(function(err, user){
+    if(err) return console.error(err);
+    console.log(user.firstName + "saved to Users collection");
+  });
+}//end add user

@@ -22,6 +22,16 @@
               </h2>
 
             <% } %>
+            <% if (registered == true) { %>
+              <h2>
+                <p>
+                  Success!  New user registered successfully!
+                </p>
+                <p>
+                  Please sign in below.
+                </p>
+              </h2>
+            <% } %>
 
             <form action="profile" method="post">
               <label for="uname">Username</label><br>

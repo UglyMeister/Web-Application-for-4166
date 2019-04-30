@@ -84,9 +84,10 @@ router.get('/profile', async (request, response) => {
 
   let action = request.query.action;
   let failed = request.query.failed;
+  let registered = request.query.registered;
   console.log("user profile GET action " + action);
   console.log("failed: " + failed);
-
+  console.log("registered: " + registered);
   // if (typeof sessionProfile == 'undefined') {
   //   //session tracking not started. Use hard-coded data
   //   //set default user object using hardcoded data from DB
@@ -121,11 +122,14 @@ router.get('/profile', async (request, response) => {
   }else if (action == "signin"){
     console.log("signin");
     if(failed == "true"){
-      console.log("failed login page");
-      return response.render('login', {failed: true});
+      console.log("failed login page, signin");
+      return response.render('login', {failed: true, registered: false});
+    } else if(registered=="true") {
+      console.log("registration success");
+      return response.render('login', {failed: false, registered: true});
     } else {
-      console.log("normal login page");
-      return response.render('login', {failed: false});
+      console.log("normal login page, signin");
+      return response.render('login', {failed: false, registered: false});
     }
 
     // let uname = request.body.uname;
@@ -143,10 +147,13 @@ router.get('/profile', async (request, response) => {
     console.log("register");
     if(failed=="true"){
       console.log("failed register page");
-      return response.render('register', {failed: true});
+      return response.render('register', {failed: true, registered: false});
+    } else if(registered=="true") {
+      console.log("registration success");
+      return response.render('login', {failed: false, registered: true});
     } else {
-      console.log("normal login page");
-      return response.render('register', {failed: false});
+      console.log("normal registration page, register");
+      return response.render('register', {failed: false, registered: false});
     }
   }
   //before forwarding to view, check if profile is empty
@@ -253,6 +260,24 @@ router.post('/profile',[
       user = await UserDB.addUser(uname, pwd, firstName, lastName);
 
       console .log("registration success " + user);
+      response.redirect('/profile?action=signin&registered=true');
+      // let theUser = user;
+      // request.session.theUser = theUser;
+      // console.log("user added to the session " + theUser);
+      // response.locals.theUser = request.session.theUser;
+      // action = "showProfile";
+      //
+      // let userProfile = new UserProfile();
+      // let userItems = await UserItemDB.selectUserItems(uname);
+      // let userItemsArr = [];
+      // if (userItems.length >= 1){
+      //   userItemsArr = await makeProfileItemsForView(userItems);
+      //   userProfile.setItems(userItemsArr);
+      //   request.session.currentProfile = userProfile.getItems();
+      // }
+      //
+      // respData = await showProfile(request, response);
+      // response.render(respData.view, {data: respData.data});
     } else {
       console.log("user already exists");
       response.redirect('/profile?action=register&failed=true');

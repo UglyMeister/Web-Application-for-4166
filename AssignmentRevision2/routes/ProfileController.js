@@ -139,6 +139,15 @@ router.get('/profile', async (request, response) => {
     //   }
     // }
     // console.log("no valid login found");
+  } else if (action == "register"){
+    console.log("register");
+    if(failed=="true"){
+      console.log("failed register page");
+      return response.render('register', {failed: true});
+    } else {
+      console.log("normal login page");
+      return response.render('register', {failed: false});
+    }
   }
   //before forwarding to view, check if profile is empty
   let userProfile = request.session.currentProfile;
@@ -230,6 +239,24 @@ router.post('/profile',[
     //     respData = await showProfile(request, response);
     //   }
     // }
+  } else if (action=="register") {
+    uname = request.body.uname;
+    pwd = request.body.pwd;
+    firstName = request.body.firstName;
+    lastName = request.body.lastName;
+    if(!errors.isEmpty()){
+      return response.status(422).json({errors: errors.array()});
+    }
+    let user = await UserDB.getUser(uname);
+    if(user == null){
+      console.log("user doesn't exist in database");
+      user = await UserDB.addUser(uname, pwd, firstName, lastName);
+
+      console .log("registration success " + user);
+    } else {
+      console.log("user already exists");
+      response.redirect('/profile?action=register&failed=true');
+    }
   }
   //before forwarding to view, check if cart is empty after updates
   let userProfile = request.session.currentProfile;
